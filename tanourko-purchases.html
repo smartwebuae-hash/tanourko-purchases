@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مشتريات تنوركو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Lalezar&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1EC;--surface:#FFFFFF;--ink:#2A1A10;--muted:#7A6455;--line:#E7DBD0;
+  --orange:#E4570F;--orange-deep:#B8400A;--orange-soft:#FDE9DC;
+  --green:#2F7D4F;--red:#C0392B;--ticket:#FFF9F3;
+  --font:'IBM Plex Sans Arabic',Tahoma,Arial,sans-serif;
+  --display:'Lalezar','IBM Plex Sans Arabic',Tahoma,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#18110C;--surface:#231811;--ink:#F6EBE2;--muted:#B59E8D;--line:#3A2A1F;
+    --orange:#FF7A2F;--orange-deep:#FF9A5C;--orange-soft:#3A2214;
+    --green:#5BC48A;--red:#FF6B5B;--ticket:#2A1D14;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#18110C;--surface:#231811;--ink:#F6EBE2;--muted:#B59E8D;--line:#3A2A1F;
+  --orange:#FF7A2F;--orange-deep:#FF9A5C;--orange-soft:#3A2214;
+  --green:#5BC48A;--red:#FF6B5B;--ticket:#2A1D14;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+img{max-width:100%}
+
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px 120px}
+
+header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:12px 0 18px;border-bottom:3px solid var(--orange)}
+.brand h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,8vw,3.4rem);line-height:1;margin:0;color:var(--orange)}
+.brand p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+.top-actions{display:flex;gap:8px}
+
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:700;background:var(--orange);color:#fff;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.btn:hover{background:var(--orange-deep)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn.small{padding:6px 12px;font-size:.88rem;border-radius:8px}
+.btn.danger{background:transparent;color:var(--red);border:1.5px solid var(--line)}
+.btn.danger:hover{border-color:var(--red)}
+.btn.solid-danger{background:var(--red)}
+
+.tabs{display:flex;gap:6px;margin:18px 0 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:5px}
+.tabs button{flex:1;border:0;background:transparent;padding:10px;border-radius:8px;font-weight:700;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--orange);color:#fff}
+
+.picker{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.picker input{flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);direction:ltr;text-align:center}
+.picker .arrow{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-size:1.2rem}
+
+.sale{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:grid;gap:8px}
+.sale-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.sale-name{font-weight:700;font-size:1.08rem}
+.sale-phone{color:var(--muted);direction:ltr;display:inline-block;font-size:.92rem;text-decoration:none}
+.sale-total{font-weight:700;font-size:1.2rem;color:var(--orange);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--orange-soft);color:var(--ink);border-radius:999px;padding:2px 10px;font-size:.85rem}
+.chip.pay-credit{background:transparent;border:1.5px solid var(--red);color:var(--red)}
+.sale-notes{color:var(--muted);font-size:.9rem;margin:0}
+.sale-actions{display:flex;flex-wrap:wrap;gap:6px;border-top:1px dashed var(--line);padding-top:10px}
+
+.empty{text-align:center;padding:36px 16px;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
+.empty .btn{margin-top:12px}
+
+/* receipt-style totals: the signature element */
+.ticket{background:var(--ticket);margin-top:18px;padding:22px 20px 18px;position:relative;border-inline:1px solid var(--line)}
+.ticket::before,.ticket::after{content:"";position:absolute;inset-inline:-1px;height:12px;
+  background:radial-gradient(circle at 10px 0,transparent 7px,var(--ticket) 7.5px) repeat-x;background-size:20px 12px}
+.ticket::before{top:-11px;transform:scaleY(-1)}
+.ticket::after{bottom:-11px}
+.ticket h2{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:0 0 10px;color:var(--orange)}
+.t-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted var(--line)}
+.t-row span{color:var(--muted)}
+.t-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:2px solid var(--ink)}
+.t-total span{font-weight:700}
+.t-total strong{font-family:var(--display);font-weight:400;font-size:2rem;color:var(--orange);line-height:1}
+
+.table-box{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:720px;font-size:.92rem}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--orange-soft);font-weight:700}
+tr.day-sub td{background:var(--bg);font-weight:700}
+tr.day-sub td:last-child{color:var(--orange)}
+td.num{direction:ltr;text-align:left}
+.icon-btn{border:0;background:transparent;padding:4px 6px;border-radius:6px;color:var(--muted)}
+.icon-btn:hover{color:var(--orange)}
+.icon-btn.del:hover{color:var(--red)}
+
+.fab{position:fixed;inset-inline-start:50%;transform:translateX(50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  padding:14px 28px;font-size:1.05rem;border-radius:999px;box-shadow:0 8px 24px rgba(228,87,15,.35);z-index:20}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(20,10,4,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.modal.open{display:flex}
+.sheet{background:var(--surface);width:100%;max-width:560px;max-height:92%;overflow-y:auto;border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px))}
+@media (min-width:640px){.modal{align-items:center}.sheet{border-radius:18px}}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:0 0 14px;color:var(--orange)}
+.field{margin-bottom:14px}
+.field label,.field .lbl{display:block;font-weight:700;margin-bottom:6px;font-size:.95rem}
+.field input,.field textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
+.field input:focus,.field textarea:focus{border-color:var(--orange);outline:none}
+.field input.ltr{direction:ltr;text-align:right}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{flex:1;min-width:80px;text-align:center;padding:10px 8px;border:1.5px solid var(--line);border-radius:10px;font-weight:700;margin:0;cursor:pointer}
+.seg input:checked+label{background:var(--orange);border-color:var(--orange);color:#fff}
+.seg input:focus-visible+label{outline:3px solid var(--orange);outline-offset:2px}
+.total-preview{background:var(--orange-soft);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;font-weight:700;margin-bottom:14px}
+.total-preview b{color:var(--orange);font-size:1.15rem}
+.upload{display:block;border:2px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);cursor:pointer}
+.upload:hover{border-color:var(--orange);color:var(--orange)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
+.thumb{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb button{position:absolute;top:4px;inset-inline-end:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:.9rem;line-height:1}
+.sheet-actions{display:flex;gap:10px;margin-top:6px}
+.sheet-actions .btn{flex:1;padding:13px}
+.hint{color:var(--muted);font-size:.85rem;margin:6px 0 0}
+
+.viewer .sheet{max-width:720px}
+.viewer-img{width:100%;border-radius:10px;border:1px solid var(--line);margin-bottom:10px;display:block}
+
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:0 auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:700;z-index:60;opacity:0;transform:translateY(-10px);transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+
+.autobox{border:2px solid var(--orange);background:var(--orange-soft);border-radius:14px;padding:14px;margin-bottom:16px}
+.autobox .btn{width:100%;padding:12px}
+.autobox .status{margin:8px 0 0;font-size:.9rem;min-height:1.2em}
+.autobox .status.err{color:var(--red)}
+.autobox .status.ok{color:var(--green)}
+.autobox .keyrow{margin-top:10px}
+.autobox .keyrow input{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);direction:ltr}
+.autobox .keyrow small{color:var(--muted);display:block;margin-top:4px}
+.filled{animation:flash 1.2s ease}
+@keyframes flash{0%{background:var(--orange-soft)}100%{background:var(--bg)}}
+.sec-title{font-family:var(--display);font-weight:400;font-size:1.4rem;color:var(--orange);margin:22px 0 8px}
+table.days-table{min-width:460px}
+.chip.cook{background:transparent;border:1.5px solid var(--orange);color:var(--orange)}
+.qty-row{display:flex;gap:6px}
+.qty-row input{flex:1;min-width:0;text-align:center!important}
+.qbtn{width:44px;flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;font-weight:700;color:var(--orange)}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.tcol{display:flex;flex-direction:column;gap:6px}
+.seg .tcol label{min-width:0}
+.seg .tcol label.cook{font-size:.85rem;padding:6px 4px;font-weight:500;border-style:dashed}
+.seg .tcol input:checked+label.cook{border-style:solid}
+.t-row.sub span{font-size:.85rem}
+.seg label.anycook{flex:1 1 100%;margin-top:6px!important;font-size:.85rem;padding:7px;font-weight:500;border-style:dashed}
+.seg input:checked+label.anycook{border-style:solid}
+@media (max-width:520px){header.top{flex-wrap:wrap;align-items:stretch}.top-actions{width:100%}.top-actions .btn{flex:1;padding:10px}}
+.split{display:grid;gap:6px;margin-top:2px}
+.sp-row{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:8px}
+.sp-row span{font-weight:700}
+.sp-row input{padding:9px 12px!important}
+.sp-left{margin:2px 0 0;font-weight:700;font-size:.92rem}
+.sp-left.ok{color:var(--green)}.sp-left.bad{color:var(--red)}
+.link-btn{border:0;background:transparent;color:var(--orange);font-weight:700;padding:8px 0;margin-top:4px;text-decoration:underline;text-underline-offset:3px}
+.srow{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;align-items:center;background:var(--bg)}
+.srow.off{opacity:.45}
+.srow input,.srow select{width:100%;min-width:0;padding:7px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);font-size:.9rem}
+.srow .full{grid-column:2 / 4}
+.srow .chkcell{grid-row:span 4;display:flex;align-items:center;justify-content:center;padding-inline-end:4px}
+.srow .chkcell input{width:22px;height:22px;accent-color:var(--orange)}
+.srow .ltr{direction:ltr;text-align:right}
+.ssum{display:flex;justify-content:space-between;align-items:baseline;background:var(--orange-soft);border-radius:10px;padding:10px 14px;margin:6px 0 12px;font-weight:700}
+.ssum b{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--orange)}
+.print-only{display:none!important}
+.signs{display:flex;justify-content:space-between;gap:30px;margin-top:40px}
+.signs div{flex:1;border-top:1px solid #000;padding-top:6px;text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#444;--ticket:#fff;padding:0}
+  .no-print,.fab,.tabs,.picker,.sale-actions,.top-actions,td.act,th.act{display:none!important}
+  .print-only{display:block!important}
+  .signs.print-only{display:flex!important}
+  .wrap{padding:0;max-width:none}
+  .sale,.ticket{break-inside:avoid}
+  .table-box{overflow:visible;border:0}
+  table{min-width:0}
+}
+
+.muted{color:var(--muted);font-weight:400}
+.big-in{font-size:1.2rem!important;font-weight:700}
+.warn{color:var(--red)}
+.check-line{display:flex;align-items:center;gap:10px;font-weight:700;margin:4px 0 16px;padding:12px;border:1.5px dashed var(--line);border-radius:10px;cursor:pointer}
+.check-line input{width:22px;height:22px;accent-color:var(--orange)}
+.irow{display:grid;grid-template-columns:1.6fr .8fr .9fr 1fr auto;gap:5px;margin-bottom:6px}
+.irow input,.irow select{min-width:0;width:100%;padding:8px 6px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);font-size:.88rem}
+.irm{border:0;background:transparent;color:var(--red);font-size:1rem;padding:0 4px}
+.pay-group{margin-bottom:8px}
+.pay-head{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--orange);font-size:1.05rem}
+.pay-head b{color:var(--orange)}
+.chip.fd{border:1.5px solid;cursor:pointer;font:inherit;font-size:.85rem}
+.chip.fd.no{background:transparent;color:var(--red);border-color:var(--red)}
+.chip.fd.yes{background:transparent;color:var(--green);border-color:var(--green)}
+.items-list{list-style:none;margin:0;padding:8px 10px;background:var(--bg);border-radius:10px;font-size:.88rem}
+.items-list li{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:3px 0;border-bottom:1px dotted var(--line)}
+.items-list li:last-child{border-bottom:0}
+.tabs button{padding:10px 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>مشتريات تنوركو</h1>
+      <p>فواتير الموردين حسب طريقة الدفع — مطعم ومطبخ تنوركو</p>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost small" id="printBtn" type="button">🖨️ طباعة التقرير</button>
+    </div>
+  </header>
+
+  <div class="print-only" id="printHead"></div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-view="day" type="button">اليومي</button>
+    <button role="tab" aria-selected="false" data-view="month" type="button">الشهري</button>
+    <button role="tab" aria-selected="false" data-view="pending" type="button">لم تُدخل <span id="pendCount"></span></button>
+  </div>
+
+  <div class="picker" id="dayPicker">
+    <button class="arrow" type="button" data-step="-1" aria-label="اليوم السابق">→</button>
+    <input type="date" id="dayInput" aria-label="اختر اليوم">
+    <button class="arrow" type="button" data-step="1" aria-label="اليوم التالي">←</button>
+  </div>
+  <div class="picker" id="monthPicker" hidden>
+    <button class="arrow" type="button" data-mstep="-1" aria-label="الشهر السابق">→</button>
+    <input type="month" id="monthInput" aria-label="اختر الشهر">
+    <button class="arrow" type="button" data-mstep="1" aria-label="الشهر التالي">←</button>
+  </div>
+
+  <main id="content"></main>
+
+  <div class="print-only signs">
+    <div>توقيع المحاسب</div>
+    <div>توقيع المدير</div>
+  </div>
+</div>
+
+<button class="btn fab no-print" id="addBtn" type="button">＋ فاتورة مشتريات</button>
+
+<datalist id="supList"></datalist>
+
+<div class="modal" id="formModal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <h2 id="formTitle">فاتورة مشتريات</h2>
+    <div class="autobox" id="autoBox">
+      <button class="btn" type="button" id="autoBtn">📷 تعبئة تلقائية من صورة الفاتورة</button>
+      <input type="file" id="fAuto" accept="image/*" hidden>
+      <p class="status" id="autoStatus" role="status"></p>
+      <div class="keyrow" id="keyRow" hidden>
+        <input id="geminiKey" placeholder="ضع مفتاح Google Gemini هنا (مجاني)" autocomplete="off">
+        <small>يُحفظ المفتاح على هذا الجهاز فقط. نفس المفتاح حق موقع الذبائح.</small>
+      </div>
+    </div>
+    <form id="pForm" novalidate onsubmit="return false">
+      <div class="row2">
+        <div class="field"><label for="fDate">التاريخ</label><input type="date" id="fDate" class="ltr"></div>
+        <div class="field"><label for="fInv">رقم الفاتورة</label><input id="fInv" class="ltr" placeholder="اختياري"></div>
+      </div>
+      <div class="field"><label for="fSup">المورد</label><input id="fSup" list="supList" autocomplete="off" placeholder="مثال: ملحمة الإمارات"></div>
+
+      <div class="field">
+        <span class="lbl">الأصناف <small class="muted">(اختياري — تساعدك في الإدخال على Foodics)</small></span>
+        <div id="items"></div>
+        <button type="button" class="link-btn" id="addItem">＋ إضافة صنف</button>
+        <p class="hint" id="itemsSum"></p>
+      </div>
+
+      <div class="field"><label for="fTotal">إجمالي الفاتورة (د.إ)</label><input id="fTotal" type="number" inputmode="decimal" min="0" step="0.01" class="ltr big-in" placeholder="0"></div>
+
+      <div class="field">
+        <span class="lbl">طريقة الدفع</span>
+        <div class="seg">
+          <input type="radio" name="fPay" id="pCash" value="كاش" checked><label for="pCash">💵 كاش</label>
+          <input type="radio" name="fPay" id="pVisa" value="فيزا"><label for="pVisa">💳 فيزا</label>
+          <input type="radio" name="fPay" id="pTr" value="تحويل بنكي"><label for="pTr">🏦 تحويل</label>
+          <input type="radio" name="fPay" id="pCr" value="آجل"><label for="pCr">📒 آجل</label>
+        </div>
+      </div>
+
+      <label class="check-line"><input type="checkbox" id="fFoodics"> تم إدخالها في Foodics</label>
+
+      <div class="field"><label for="fNotes">ملاحظات</label><textarea id="fNotes" rows="2" placeholder="اختياري"></textarea></div>
+      <div class="field">
+        <span class="lbl">صور الفاتورة</span>
+        <label class="upload" for="fImages">📷 إضافة صور الفاتورة (أكثر من صورة)</label>
+        <input type="file" id="fImages" accept="image/*" multiple hidden>
+        <div class="thumbs" id="fThumbs"></div>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn" type="button" id="saveBtn">حفظ</button>
+        <button class="btn ghost" type="button" data-close>إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal viewer" id="viewModal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="viewTitle">
+    <h2 id="viewTitle">الفاتورة</h2>
+    <div id="viewBody"></div>
+    <div class="sheet-actions"><button class="btn ghost" type="button" data-close>إغلاق</button></div>
+  </div>
+</div>
+
+<div class="modal" id="confirmModal" aria-hidden="true">
+  <div class="sheet" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <h2 id="confirmTitle">حذف الفاتورة؟</h2>
+    <p id="confirmText"></p>
+    <div class="sheet-actions">
+      <button class="btn solid-danger" type="button" id="confirmYes">نعم، احذف</button>
+      <button class="btn ghost" type="button" data-close>إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const AR_DAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const AR_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const PAYS=['كاش','فيزا','تحويل بنكي','آجل'];
+const PAY_ICON={'كاش':'💵','فيزا':'💳','تحويل بنكي':'🏦','آجل':'📒'};
+const UNITS=['كيلو','حبة','كرتون','جونية','لتر','علبة','ربطة'];
+
+let db=null, list=[], view='day';
+let curDate=todayStr(), curMonth=todayStr().slice(0,7);
+let editingId=null, formImgs=[], pendingDelete=null;
+
+function pad(n){return String(n).padStart(2,'0')}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function r2(n){return Math.round((+n||0)*100)/100}
+function money(n){return r2(n).toLocaleString('en-US',{maximumFractionDigits:2})+' د.إ'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dayLabel(ds){const [y,m,d]=ds.split('-').map(Number);const dt=new Date(y,m-1,d);return AR_DAYS[dt.getDay()]+' '+d+' '+AR_MONTHS[m-1]+' '+y}
+function monthLabel(ms){const [y,m]=ms.split('-').map(Number);return AR_MONTHS[m-1]+' '+y}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2400)}
+function normPay(p){p=String(p||'');if(/كاش|نقد|cash/i.test(p))return 'كاش';if(/تحويل|transfer/i.test(p))return 'تحويل بنكي';if(/آجل|اجل|دين|credit/i.test(p))return 'آجل';if(/فيز|بطاق|شبك|visa|card|mada/i.test(p))return 'فيزا';return null}
+
+/* ---------- storage ---------- */
+function openDB(){return new Promise((res,rej)=>{try{const r=indexedDB.open('tanourko-purchases',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+function st(mode){return db.transaction('p',mode).objectStore('p')}
+function dbAll(){return new Promise((res,rej)=>{const q=st('readonly').getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
+function dbPut(o){if(!db)return Promise.resolve();return new Promise((res,rej)=>{const q=st('readwrite').put(o);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+function dbDel(id){if(!db)return Promise.resolve();return new Promise((res,rej)=>{const q=st('readwrite').delete(id);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+
+/* ---------- summaries ---------- */
+function summarize(arr){const s={total:0,n:arr.length,pending:0,pay:{}};PAYS.forEach(p=>s.pay[p]=0);arr.forEach(x=>{s.total+=+x.total||0;s.pay[x.pay]=(s.pay[x.pay]||0)+(+x.total||0);if(!x.foodics)s.pending++});return s}
+function ticket(title,s,label){
+  let rows=`<div class="t-row"><span>عدد الفواتير</span><b>${s.n}</b></div>`;
+  PAYS.forEach(p=>rows+=`<div class="t-row pay-row"><span>${PAY_ICON[p]} ${p}</span><b>${money(s.pay[p])}</b></div>`);
+  rows+=`<div class="t-row"><span>لم تُدخل في Foodics</span><b class="${s.pending?'warn':''}">${s.pending}</b></div>`;
+  return `<section class="ticket"><h2>${title}</h2>${rows}<div class="t-total"><span>${label}</span><strong>${money(s.total)}</strong></div></section>`;
+}
+function card(x){
+  const n=(x.images||[]).length, items=x.items||[];
+  return `<article class="sale">
+    <div class="sale-head"><div><div class="sale-name">${esc(x.supplier)}</div>${x.invNo?`<span class="sale-phone">فاتورة رقم ${esc(x.invNo)}</span>`:''}</div>
+    <div class="sale-total">${money(x.total)}</div></div>
+    <div class="chips">
+      ${view!=='day'?`<span class="chip">${dayLabel(x.date)}</span>`:''}
+      ${view!=='day'?`<span class="chip">${PAY_ICON[x.pay]} ${esc(x.pay)}</span>`:''}
+      ${items.length?`<span class="chip">${items.length} صنف</span>`:''}
+      ${n?`<span class="chip">📎 ${n} صورة</span>`:''}
+      <button type="button" class="chip fd ${x.foodics?'yes':'no'}" data-fd="${x.id}">${x.foodics?'✅ في Foodics':'⏳ لم تُدخل في Foodics'}</button>
+    </div>
+    ${items.length?`<ul class="items-list">${items.map(i=>`<li><span>${esc(i.name)}</span><span>${esc(i.qty??'')} ${esc(i.unit||'')}</span><b>${i.price?money(i.price):''}</b></li>`).join('')}</ul>`:''}
+    ${x.notes?`<p class="sale-notes">${esc(x.notes)}</p>`:''}
+    <div class="sale-actions">
+      <button class="btn ghost small" type="button" data-edit="${x.id}">✏️ تعديل</button>
+      <button class="btn ghost small" type="button" data-view-img="${x.id}" ${n?'':'disabled'}>🧾 الفاتورة</button>
+      <button class="btn danger small" type="button" data-del="${x.id}">🗑️ حذف</button>
+    </div></article>`;
+}
+
+/* ---------- render ---------- */
+function render(){
+  $('#dayInput').value=curDate;$('#monthInput').value=curMonth;
+  $('#dayPicker').hidden=view!=='day';$('#monthPicker').hidden=view!=='month';
+  $$('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.view===view));
+  const pend=list.filter(x=>!x.foodics).length;$('#pendCount').textContent=pend?'('+pend+')':'';
+  const sups=[...new Set(list.map(x=>x.supplier).filter(Boolean))].sort();$('#supList').innerHTML=sups.map(s=>`<option value="${esc(s)}">`).join('');
+  const c=$('#content');
+  if(view==='day'){
+    const arr=list.filter(x=>x.date===curDate).sort((a,b)=>a.created-b.created);
+    $('#printHead').innerHTML=`<h2>تقرير المشتريات اليومي</h2><p>${dayLabel(curDate)}</p>`;
+    if(!arr.length){c.innerHTML=`<div class="empty">لا توجد مشتريات في ${dayLabel(curDate)}.<br><button class="btn" type="button" data-add>＋ إضافة فاتورة</button></div>`+ticket('ملخص اليوم',summarize([]),'إجمالي مشتريات اليوم');return}
+    c.innerHTML=PAYS.map(p=>{const g=arr.filter(x=>x.pay===p);if(!g.length)return '';const t=g.reduce((a,x)=>a+(+x.total||0),0);
+      return `<section class="pay-group"><h3 class="pay-head"><span>${PAY_ICON[p]} ${p}</span><span>${g.length} فاتورة · <b>${money(t)}</b></span></h3>${g.map(card).join('')}</section>`}).join('')
+      +ticket('ملخص اليوم',summarize(arr),'إجمالي مشتريات اليوم');
+  }else if(view==='month'){
+    const arr=list.filter(x=>x.date.slice(0,7)===curMonth);
+    $('#printHead').innerHTML=`<h2>تقرير المشتريات الشهري</h2><p>${monthLabel(curMonth)}</p>`;
+    if(!arr.length){c.innerHTML=`<div class="empty">لا توجد مشتريات في ${monthLabel(curMonth)}.</div>`+ticket('ملخص الشهر',summarize([]),'إجمالي مشتريات الشهر');return}
+    const days={};arr.forEach(x=>(days[x.date]=days[x.date]||[]).push(x));
+    const dRows=Object.keys(days).sort().map(d=>{const s=summarize(days[d]);return `<tr><td><button type="button" class="link-btn" data-goday="${d}">${dayLabel(d)}</button></td>${PAYS.map(p=>`<td class="num">${s.pay[p]?money(s.pay[p]):'—'}</td>`).join('')}<td class="num"><b>${money(s.total)}</b></td></tr>`}).join('');
+    const ms=summarize(arr);
+    const foot=`<tr class="day-sub"><td>الإجمالي</td>${PAYS.map(p=>`<td class="num">${money(ms.pay[p])}</td>`).join('')}<td class="num">${money(ms.total)}</td></tr>`;
+    const sup={};arr.forEach(x=>{const k=x.supplier||'بدون اسم';sup[k]=sup[k]||{n:0,t:0,pay:{}};sup[k].n++;sup[k].t+=+x.total||0;sup[k].pay[x.pay]=(sup[k].pay[x.pay]||0)+(+x.total||0)});
+    const sRows=Object.entries(sup).sort((a,b)=>b[1].t-a[1].t).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v.n}</td>${PAYS.map(p=>`<td class="num">${v.pay[p]?money(v.pay[p]):'—'}</td>`).join('')}<td class="num"><b>${money(v.t)}</b></td></tr>`).join('');
+    c.innerHTML=`<h3 class="sec-title">المشتريات لكل يوم حسب طريقة الدفع</h3><div class="table-box"><table><thead><tr><th>التاريخ</th>${PAYS.map(p=>`<th>${PAY_ICON[p]} ${p}</th>`).join('')}<th>الإجمالي</th></tr></thead><tbody>${dRows}${foot}</tbody></table></div>
+      <h3 class="sec-title">حسب المورد</h3><div class="table-box"><table><thead><tr><th>المورد</th><th>فواتير</th>${PAYS.map(p=>`<th>${p}</th>`).join('')}<th>الإجمالي</th></tr></thead><tbody>${sRows}</tbody></table></div>`
+      +ticket('ملخص الشهر — '+monthLabel(curMonth),ms,'إجمالي مشتريات الشهر');
+  }else{
+    const arr=list.filter(x=>!x.foodics).sort((a,b)=>a.date.localeCompare(b.date)||a.created-b.created);
+    $('#printHead').innerHTML=`<h2>فواتير لم تُدخل في Foodics</h2>`;
+    c.innerHTML=arr.length?`<p class="hint">${arr.length} فاتورة باقية. بعد ما تدخلها في Foodics اضغط على "⏳ لم تُدخل" فتصير ✅ وتختفي من هنا.</p>`+arr.map(card).join(''):`<div class="empty">✅ كل الفواتير مدخلة في Foodics.</div>`;
+  }
+}
+
+/* ---------- modals ---------- */
+function openModal(id){const m=$(id);m.classList.add('open');m.setAttribute('aria-hidden','false')}
+function closeModal(m){m.classList.remove('open');m.setAttribute('aria-hidden','true')}
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.hasAttribute('data-close'))closeModal(m)}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal.open').forEach(closeModal)});
+
+/* ---------- items editor ---------- */
+function itemRow(i){i=i||{};return `<div class="irow">
+  <input data-k="name" placeholder="الصنف" value="${esc(i.name||'')}">
+  <input data-k="qty" class="ltr" inputmode="decimal" placeholder="الكمية" value="${esc(i.qty??'')}">
+  <select data-k="unit">${UNITS.map(u=>`<option ${i.unit===u?'selected':''}>${u}</option>`).join('')}${i.unit&&!UNITS.includes(i.unit)?`<option selected>${esc(i.unit)}</option>`:''}</select>
+  <input data-k="price" class="ltr" inputmode="decimal" placeholder="المبلغ" value="${esc(i.price??'')}">
+  <button type="button" class="irm" aria-label="حذف الصنف">✕</button></div>`}
+function readItems(){return $$('#items .irow').map(r=>{const g=k=>r.querySelector(`[data-k="${k}"]`).value.trim();return {name:g('name'),qty:g('qty')===''?'':r2(parseFloat(g('qty'))),unit:g('unit'),price:g('price')===''?'':r2(parseFloat(g('price')))}}).filter(i=>i.name||i.price)}
+function itemsSum(){const s=readItems().reduce((a,i)=>a+(+i.price||0),0);const t=+$('#fTotal').value||0;const el=$('#itemsSum');
+  if(!readItems().length){el.textContent='';return}
+  el.innerHTML=`مجموع الأصناف: <b>${money(s)}</b>`+(t&&Math.abs(s-t)>0.01?` — <span class="warn">يختلف عن الإجمالي بـ ${money(t-s)}</span>`:(t?' ✅':''));}
+$('#addItem').addEventListener('click',()=>{$('#items').insertAdjacentHTML('beforeend',itemRow());itemsSum()});
+$('#items').addEventListener('click',e=>{const b=e.target.closest('.irm');if(b){b.parentElement.remove();itemsSum()}});
+$('#items').addEventListener('input',itemsSum);$('#fTotal').addEventListener('input',itemsSum);
+
+/* ---------- images ---------- */
+function drawThumbs(){$('#fThumbs').innerHTML=formImgs.map((src,i)=>`<div class="thumb"><img src="${src}" alt="صورة ${i+1}"><button type="button" data-rm="${i}" aria-label="حذف الصورة">✕</button></div>`).join('')}
+$('#fThumbs').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(b){formImgs.splice(+b.dataset.rm,1);drawThumbs()}});
+function compress(file,max0,q0){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const img=new Image();img.onload=()=>{const max=max0||1600;let w=img.width,h=img.height;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);res(cv.toDataURL('image/jpeg',q0||0.78))};img.onerror=()=>rej({code:'image_rejected',detail:'صيغة الصورة '+(file.type||'غير معروفة')});img.src=fr.result};fr.onerror=()=>rej(fr.error);fr.readAsDataURL(file)})}
+$('#fImages').addEventListener('change',async e=>{const fs=Array.from(e.target.files||[]);e.target.value='';for(const f of fs){try{formImgs.push(await compress(f))}catch(err){toast('تعذّر قراءة إحدى الصور')}}drawThumbs()});
+
+/* ---------- form ---------- */
+const AUTO_HINT='صوّر فاتورة المورد وسيتم تعبئة المورد ورقم الفاتورة والأصناف والإجمالي وطريقة الدفع. راجع قبل الحفظ.';
+function openForm(id){
+  editingId=id||null;const x=id?list.find(s=>s.id===id):null;
+  $('#formTitle').textContent=x?'تعديل الفاتورة':'فاتورة مشتريات';$('#saveBtn').textContent=x?'حفظ التعديل':'حفظ';
+  $('#fDate').value=x?x.date:(view==='day'?curDate:todayStr());
+  $('#fSup').value=x?x.supplier:'';$('#fInv').value=x?x.invNo||'':'';$('#fTotal').value=x?x.total:'';
+  $('#fNotes').value=x?x.notes||'':'';$('#fFoodics').checked=!!(x&&x.foodics);
+  const p=$$('input[name="fPay"]').find(r=>r.value===(x?x.pay:'كاش'))||$('#pCash');p.checked=true;
+  $('#items').innerHTML=(x&&x.items||[]).map(itemRow).join('');itemsSum();
+  formImgs=x?[...(x.images||[])]:[];drawThumbs();setAutoStatus(AUTO_HINT);
+  openModal('#formModal');
+}
+$('#saveBtn').addEventListener('click',async()=>{
+  const date=$('#fDate').value,supplier=$('#fSup').value.trim(),total=parseFloat($('#fTotal').value);
+  if(!date){toast('اختر التاريخ');return}
+  if(!supplier){toast('اكتب اسم المورد');$('#fSup').focus();return}
+  if(!(total>=0)){toast('اكتب إجمالي الفاتورة');$('#fTotal').focus();return}
+  const invNo=$('#fInv').value.trim();
+  const dup=invNo&&list.find(x=>x.id!==editingId&&x.invNo===invNo&&x.supplier===supplier);
+  if(dup&&!$('#saveBtn').dataset.force){$('#saveBtn').dataset.force='1';toast('⚠️ نفس رقم الفاتورة لنفس المورد موجود بتاريخ '+dup.date+'. اضغط حفظ مرة ثانية إذا متأكد.');return}
+  delete $('#saveBtn').dataset.force;
+  const old=editingId?list.find(s=>s.id===editingId):null;
+  const rec={id:old?old.id:'p'+Date.now()+Math.random().toString(36).slice(2,6),created:old?old.created:Date.now(),date,supplier,invNo,total:r2(total),
+    pay:$('input[name="fPay"]:checked').value,items:readItems(),foodics:$('#fFoodics').checked,notes:$('#fNotes').value.trim(),images:[...formImgs]};
+  try{await dbPut(rec)}catch(e){toast('لم يتم الحفظ: التخزين ممتلئ أو غير متاح');return}
+  if(old)list[list.indexOf(old)]=rec;else list.push(rec);
+  closeModal($('#formModal'));if(view==='day')curDate=date;else if(view==='month')curMonth=date.slice(0,7);
+  render();toast(old?'تم حفظ التعديل':'تمت الإضافة');
+});
+
+/* ---------- clicks ---------- */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-add],[data-edit],[data-del],[data-view-img],[data-step],[data-mstep],[data-view],[data-fd],[data-goday]');if(!t)return;
+  if(t.hasAttribute('data-add'))openForm();
+  else if(t.dataset.edit)openForm(t.dataset.edit);
+  else if(t.dataset.fd){const x=list.find(s=>s.id===t.dataset.fd);if(!x)return;x.foodics=!x.foodics;try{await dbPut(x)}catch(err){}render();toast(x.foodics?'✅ تم تعليمها: مدخلة في Foodics':'رجعت: لم تُدخل')}
+  else if(t.dataset.del){const x=list.find(s=>s.id===t.dataset.del);if(!x)return;pendingDelete=x.id;$('#confirmText').textContent=`سيتم حذف فاتورة ${x.supplier} بمبلغ ${money(x.total)} (${x.pay}) مع صورها.`;openModal('#confirmModal')}
+  else if(t.dataset.viewImg){const x=list.find(s=>s.id===t.dataset.viewImg);if(!x)return;$('#viewTitle').textContent='فاتورة '+x.supplier;$('#viewBody').innerHTML=(x.images||[]).map((src,i)=>`<img class="viewer-img" src="${src}" alt="صورة ${i+1}">`).join('');openModal('#viewModal')}
+  else if(t.dataset.step){const [y,m,d]=curDate.split('-').map(Number);const dt=new Date(y,m-1,d+ +t.dataset.step);curDate=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());render()}
+  else if(t.dataset.mstep){const [y,m]=curMonth.split('-').map(Number);const dt=new Date(y,m-1+ +t.dataset.mstep,1);curMonth=dt.getFullYear()+'-'+pad(dt.getMonth()+1);render()}
+  else if(t.dataset.goday){curDate=t.dataset.goday;view='day';render()}
+  else if(t.dataset.view){view=t.dataset.view;render()}
+});
+$('#confirmYes').addEventListener('click',async()=>{if(!pendingDelete)return;try{await dbDel(pendingDelete)}catch(e){}list=list.filter(s=>s.id!==pendingDelete);pendingDelete=null;closeModal($('#confirmModal'));render();toast('تم الحذف')});
+$('#addBtn').addEventListener('click',()=>openForm());
+$('#dayInput').addEventListener('change',e=>{if(e.target.value){curDate=e.target.value;render()}});
+$('#monthInput').addEventListener('change',e=>{if(e.target.value){curMonth=e.target.value;render()}});
+$('#printBtn').addEventListener('click',()=>{try{window.print()}catch(e){toast('الطباعة غير متاحة هنا')}});
+
+/* ---------- auto-fill ---------- */
+const AUTO_PROMPT=`هذه صورة فاتورة مشتريات من مورد لمطعم تنوركو في الإمارات. اقرأها واستخرج البيانات.
+أرجع JSON فقط بدون أي كلام آخر، بهذا الشكل:
+{"supplier":string|null,"invNo":string|null,"date":"YYYY-MM-DD"|null,"total":number|null,"pay":"كاش"|"فيزا"|"تحويل بنكي"|"آجل"|null,"items":[{"name":string,"qty":number|null,"unit":string|null,"price":number|null}]}
+- supplier: اسم المورد أو المحل اللي أصدر الفاتورة (وليس اسم مطعم تنوركو).
+- invNo: رقم الفاتورة.
+- total: المبلغ الإجمالي النهائي المطلوب دفعه شامل الضريبة.
+- pay: كاش/نقدي ← "كاش"، فيزا/بطاقة/شبكة/مدى ← "فيزا"، تحويل ← "تحويل بنكي"، آجل/على الحساب/دين ← "آجل". إذا غير مكتوب اكتب null.
+- items: كل صنف في الفاتورة. unit واحدة من: كيلو، حبة، كرتون، جونية، لتر، علبة، ربطة إن أمكن. price = إجمالي سطر الصنف وليس سعر الوحدة.
+- date: تاريخ الفاتورة (يوم/شهر/سنة) بصيغة YYYY-MM-DD.
+- حوّل الأرقام العربية (٠-٩) إلى إنجليزية. أي قيمة غير واضحة اكتبها null.`;
+const GEMINI_MODELS=['gemini-3.6-flash','gemini-flash-latest','gemini-3.5-flash','gemini-3.1-flash-lite','gemini-flash-lite-latest'];
+let sampleFn=null, autoMode='wait';
+function setAutoStatus(msg,cls){const el=$('#autoStatus');el.textContent=msg;el.className='status'+(cls?' '+cls:'')}
+function initAuto(){
+  if(window.claude&&typeof window.claude.use==='function'){
+    claude.use('sample').then(async s=>{
+      const lim=s?await s.limits().catch(()=>null):null;
+      if(s&&lim&&lim.images){sampleFn=s;autoMode='claude'}else{autoMode='off';$('#autoBox').hidden=true}
+    }).catch(()=>{autoMode='off';$('#autoBox').hidden=true});
+  }else{
+    autoMode='gemini';$('#keyRow').hidden=false;
+    try{$('#geminiKey').value=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}
+    $('#geminiKey').addEventListener('change',e=>{try{localStorage.setItem('tanourko-gemini-key',e.target.value.trim())}catch(err){}});
+  }
+}
+function dataUrlToBlob(u){const [h,b]=u.split(',');const bin=atob(b);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a],{type:h.match(/:(.*?);/)[1]})}
+function parseJSON(t){t=String(t||'').replace(/```json|```/g,'').trim();const a=t.indexOf('{'),b=t.lastIndexOf('}');return JSON.parse(t.slice(a,b+1))}
+async function listGeminiModels(key){
+  try{
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',{headers:{'x-goog-api-key':key}});
+    if(!r.ok)return [];
+    const d=await r.json();
+    const ver=n=>{const m=n.match(/gemini-(\d+(?:\.\d+)?)/);return m?parseFloat(m[1]):0};
+    return (d.models||[])
+      .filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent'))
+      .map(m=>m.name.replace('models/',''))
+      .filter(n=>/^gemini-.*flash/.test(n)&&!/(tts|image|live|audio|embed|thinking|exp|robotics|computer)/.test(n))
+      .sort((x,y)=>ver(y)-ver(x)||(/lite/.test(x)?1:0)-(/lite/.test(y)?1:0));
+  }catch(e){return []}
+}
+let geminiWay=null;
+async function geminiPost(model,key,body){
+  const base=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+  const ways=[
+    ()=>fetch(base,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body}),
+    ()=>fetch(base+'?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body}),
+    ()=>fetch(base+'?key='+encodeURIComponent(key),{method:'POST',body})
+  ];
+  const order=geminiWay!==null?[geminiWay,...[0,1,2].filter(i=>i!==geminiWay)]:[0,1,2];
+  let errs=[];
+  for(const i of order){
+    try{const r=await ways[i]();geminiWay=i;return r}
+    catch(e){errs.push(i+':'+(e&&e.message||'fail'))}
+  }
+  throw {code:'net',detail:'no-connection '+errs.join(' | ')};
+}
+function getKey(){let k=($('#geminiKey').value||'').trim();if(!k){try{k=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}}return k.replace(/\s+/g,'')}
+async function readWithGemini(dataUrl,prompt,st){
+  prompt=prompt||AUTO_PROMPT;st=st||setAutoStatus;
+  const key=getKey();
+  if(!key)throw {code:'no_key'};
+  const body=JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:'image/jpeg',data:dataUrl.split(',')[1]}}]}],generationConfig:{response_mime_type:'application/json',temperature:0,maxOutputTokens:8192}});
+  let saved='';try{saved=localStorage.getItem('tanourko-gemini-model')||''}catch(e){}
+  let models=[saved,...GEMINI_MODELS].filter(Boolean);
+  let listed=false,tried=new Set(),lastErr={code:'net'},busy=0;
+  for(let i=0;i<models.length&&tried.size<12;i++){
+    const model=models[i];if(tried.has(model))continue;tried.add(model);
+    st('⏳ جاري القراءة… ('+model+')');
+    const r=await geminiPost(model,key,body);
+    if(r.ok){
+      try{localStorage.setItem('tanourko-gemini-model',model)}catch(e){}
+      let d=null,txt='';
+      try{d=await r.json();txt=(d?.candidates?.[0]?.content?.parts||[]).filter(p=>!p.thought).map(p=>p.text||'').join('');return parseJSON(txt)}
+      catch(pe){
+        const why=d?.promptFeedback?.blockReason||d?.candidates?.[0]?.finishReason||'';
+        lastErr={code:'parse',detail:model+' '+why+' '+String(txt).slice(0,80)};
+        if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
+        continue;
+      }
+    }
+    let detail='';try{const j=await r.json();detail=(j?.error?.status||'')+' '+(j?.error?.message||'')}catch(e){}
+    if(r.status===404||(r.status===400&&/model|not found|not supported/i.test(detail))){
+      lastErr={code:'net',detail:r.status+' '+model};
+      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
+      continue;
+    }
+    if(r.status===401||r.status===403){
+      lastErr={code:'bad_key',detail:r.status+' '+model+' '+detail};
+      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
+      continue;
+    }
+    if(r.status===503||r.status===500||r.status===429){
+      busy=(busy||0)+1;
+      lastErr={code:r.status===429?'rate_limited':'busy',detail:r.status+' '+model};
+      if(busy<=2){st('⏳ Gemini مشغول، أعيد المحاولة…');await new Promise(z=>setTimeout(z,2500*busy));tried.delete(model);i--;continue}
+      busy=0;
+      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
+      continue;
+    }
+    if(r.status===400)throw {code:'bad_key',detail:r.status+' '+detail};
+    if(r.status===429)throw {code:'rate_limited',detail:'429'};
+    throw {code:'net',detail:r.status+' '+detail};
+  }
+  throw lastErr;
+}
+function applyAuto(o){
+  let n=0;
+  if(o.supplier){$('#fSup').value=o.supplier;n++}
+  if(o.invNo){$('#fInv').value=String(o.invNo);n++}
+  if(o.date&&/^\d{4}-\d{2}-\d{2}$/.test(o.date)){$('#fDate').value=o.date;n++}
+  if(+o.total>0){$('#fTotal').value=r2(o.total);n++}
+  const pv=normPay(o.pay);if(pv){const r=$$('input[name="fPay"]').find(x=>x.value===pv);if(r){r.checked=true;n++}}
+  if(Array.isArray(o.items)&&o.items.length){$('#items').innerHTML=o.items.map(i=>itemRow({name:i.name||'',qty:i.qty??'',unit:i.unit||'كيلو',price:i.price??''})).join('');n++}
+  if(!(+o.total>0)){const s=readItems().reduce((a,i)=>a+(+i.price||0),0);if(s)$('#fTotal').value=r2(s)}
+  itemsSum();return n;
+}
+$('#autoBtn').addEventListener('click',()=>{
+  if(autoMode==='wait'){setAutoStatus('لحظة… حاول بعد ثوانٍ.');return}
+  if(autoMode==='gemini'&&!getKey()){setAutoStatus('ضع مفتاح Gemini أولًا ثم صوّر الفاتورة.','err');$('#geminiKey').focus();return}
+  $('#fAuto').click();
+});
+$('#fAuto').addEventListener('change',async e=>{
+  const f=(e.target.files||[])[0];e.target.value='';if(!f)return;
+  const btn=$('#autoBtn');btn.disabled=true;setAutoStatus('⏳ جاري قراءة الفاتورة… قد يأخذ حتى دقيقة.');
+  try{
+    const dataUrl=await compress(f,2000,0.82);formImgs.push(dataUrl);drawThumbs();
+    let o;
+    if(autoMode==='claude')o=await sampleFn.json(AUTO_PROMPT,{images:[dataUrlToBlob(dataUrl)],cache:false});
+    else o=await readWithGemini(dataUrl,AUTO_PROMPT,setAutoStatus);
+    const n=applyAuto(o||{});
+    if(n){setAutoStatus(`✅ تمت التعبئة، والصورة أُضيفت للفاتورة. راجع البيانات${normPay(o&&o.pay)?'':' واختر طريقة الدفع'} ثم اضغط حفظ.`,'ok')}
+    else setAutoStatus('ما لقيت بيانات واضحة. الصورة أُضيفت، أكمل يدويًا.','err');
+  }catch(err){
+    const c=err&&err.code;
+    const msg={not_granted:'لم يتم السماح بقراءة الصورة.',rate_limited:'محاولات كثيرة، انتظر دقيقة.',busy:'خدمة Gemini مزدحمة الآن، حاول بعد دقيقة.',bad_key:'Gemini رفض المفتاح.',no_key:'ضع مفتاح Gemini أولًا.',image_rejected:'الصورة غير مدعومة.',parse:'ما قدر يقرأ الفاتورة بوضوح، جرّب صورة أوضح.'}[c]||'تعذّرت قراءة الفاتورة.';
+    const det=(err&&(err.detail||err.message))||'';
+    setAutoStatus(msg+(det?' (تفاصيل: '+String(det).slice(0,160)+')':''),'err');
+  }finally{btn.disabled=false}
+});
+initAuto();
+
+/* ---------- start ---------- */
+(async()=>{
+  try{db=await openDB();list=await dbAll()}catch(e){db=null;list=[];toast('التخزين غير متاح: البيانات لن تُحفظ')}
+  render();
+})();
+})();
+
+</script>
+</body>
+</html>
