@@ -580,6 +580,9 @@ $('#copyAllBtn').addEventListener('click',async()=>{
 });
 $('#xlsBtn').addEventListener('click',async()=>{
   const arr=currentList();if(!arr.length){toast('لا توجد فواتير للتصدير');return}
+  // ننسخ نفس البيانات للحافظة كمان، عشان اللصق في الإكسل يشتغل بعد التنزيل
+  const tsvCopy=[FULL_HEAD,...fullRows(arr)].map(r=>r.join('\t')).join('\n');
+  const copied=copyText(tsvCopy);
   const btn=$('#xlsBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='⏳ جاري التجهيز…';
   try{
     if(!window.XLSX) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
@@ -601,7 +604,8 @@ $('#xlsBtn').addEventListener('click',async()=>{
     const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
     const file=new File([out],name,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
     if(navigator.canShare&&navigator.canShare({files:[file]})&&/iPhone|iPad|Android/i.test(navigator.userAgent)){try{await navigator.share({files:[file],title:currentTitle()})}catch(e){if(e.name!=='AbortError')throw e}}
-    else{const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();a.remove();toast('✅ تم تنزيل ملف Excel')}
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();a.remove();}
+    toast((await copied)?'✅ تم تجهيز ملف Excel، والبيانات منسوخة كمان — تقدر تلصقها في أي ملف إكسل':'✅ تم تجهيز ملف Excel',6000);
   }catch(e){toast('تعذّر تجهيز ملف Excel: '+(e.message||e),6000)}
   finally{btn.disabled=false;btn.textContent=old}
 });
