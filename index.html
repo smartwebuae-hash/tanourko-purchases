@@ -41,43 +41,52 @@ img{max-width:100%}
 
 .wrap{max-width:860px;margin:0 auto;padding:16px 16px 120px}
 
-header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:12px 0 18px;border-bottom:3px solid var(--orange)}
+header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:12px 0 18px;border-bottom:3px solid var(--orange);flex-wrap:wrap}
 .brand h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,8vw,3.4rem);line-height:1;margin:0;color:var(--orange)}
 .brand p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
-.top-actions{display:flex;gap:8px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
 
 .btn{border:0;border-radius:10px;padding:10px 16px;font-weight:700;background:var(--orange);color:#fff;display:inline-flex;align-items:center;gap:6px;justify-content:center}
 .btn:hover{background:var(--orange-deep)}
+.btn:disabled{opacity:.55;cursor:wait}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
 .btn.small{padding:6px 12px;font-size:.88rem;border-radius:8px}
 .btn.danger{background:transparent;color:var(--red);border:1.5px solid var(--line)}
 .btn.danger:hover{border-color:var(--red)}
 .btn.solid-danger{background:var(--red)}
+.btn.xl{background:#1D6F42}
+.btn.xl:hover{background:#155233}
+.btn.amin{background:transparent;color:#1D6F42;border:1.5px solid #1D6F42}
+
+.cloud{margin:12px 0 0;padding:8px 12px;border-radius:10px;font-size:.88rem;font-weight:700}
+.cloud.ok{background:#E6F4EC;color:var(--green)}
+.cloud.bad{background:#FDECEA;color:var(--red)}
 
 .tabs{display:flex;gap:6px;margin:18px 0 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:5px}
-.tabs button{flex:1;border:0;background:transparent;padding:10px;border-radius:8px;font-weight:700;color:var(--muted)}
+.tabs button{flex:1;border:0;background:transparent;padding:10px 4px;border-radius:8px;font-weight:700;color:var(--muted)}
 .tabs button[aria-selected="true"]{background:var(--orange);color:#fff}
 
-.picker{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.picker input{flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);direction:ltr;text-align:center}
-.picker .arrow{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-size:1.2rem}
+.picker{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.picker input{flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);min-height:46px;-webkit-appearance:none;appearance:none;text-align:center;font-weight:700;display:block}
+.picker .arrow{width:46px;height:46px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-size:1.2rem;flex:none}
+.datebig{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;border-radius:12px;padding:10px 14px;margin:6px 0 14px;font-weight:700;font-size:1.15rem}
+.datebig small{opacity:.85;font-weight:500;font-size:.85rem;direction:ltr}
 
 .sale{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:grid;gap:8px}
 .sale-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .sale-name{font-weight:700;font-size:1.08rem}
-.sale-phone{color:var(--muted);direction:ltr;display:inline-block;font-size:.92rem;text-decoration:none}
+.sale-phone{color:var(--muted);display:inline-block;font-size:.92rem}
 .sale-total{font-weight:700;font-size:1.2rem;color:var(--orange);white-space:nowrap}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{background:var(--orange-soft);color:var(--ink);border-radius:999px;padding:2px 10px;font-size:.85rem}
-.chip.pay-credit{background:transparent;border:1.5px solid var(--red);color:var(--red)}
+.chip.date{background:var(--ink);color:var(--bg);font-weight:700}
 .sale-notes{color:var(--muted);font-size:.9rem;margin:0}
 .sale-actions{display:flex;flex-wrap:wrap;gap:6px;border-top:1px dashed var(--line);padding-top:10px}
 
 .empty{text-align:center;padding:36px 16px;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
 .empty .btn{margin-top:12px}
 
-/* receipt-style totals: the signature element */
 .ticket{background:var(--ticket);margin-top:18px;padding:22px 20px 18px;position:relative;border-inline:1px solid var(--line)}
 .ticket::before,.ticket::after{content:"";position:absolute;inset-inline:-1px;height:12px;
   background:radial-gradient(circle at 10px 0,transparent 7px,var(--ticket) 7.5px) repeat-x;background-size:20px 12px}
@@ -97,14 +106,10 @@ th{background:var(--orange-soft);font-weight:700}
 tr.day-sub td{background:var(--bg);font-weight:700}
 tr.day-sub td:last-child{color:var(--orange)}
 td.num{direction:ltr;text-align:left}
-.icon-btn{border:0;background:transparent;padding:4px 6px;border-radius:6px;color:var(--muted)}
-.icon-btn:hover{color:var(--orange)}
-.icon-btn.del:hover{color:var(--red)}
 
 .fab{position:fixed;inset-inline-start:50%;transform:translateX(50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));
   padding:14px 28px;font-size:1.05rem;border-radius:999px;box-shadow:0 8px 24px rgba(228,87,15,.35);z-index:20}
 
-/* modal */
 .modal{position:fixed;inset:0;background:rgba(20,10,4,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
 .modal.open{display:flex}
 .sheet{background:var(--surface);width:100%;max-width:560px;max-height:92%;overflow-y:auto;border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px))}
@@ -113,16 +118,16 @@ td.num{direction:ltr;text-align:left}
 .field{margin-bottom:14px}
 .field label,.field .lbl{display:block;font-weight:700;margin-bottom:6px;font-size:.95rem}
 .field input,.field textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
+.field input[type=date]{min-height:48px;-webkit-appearance:none;appearance:none;display:block;text-align:right;font-weight:700}
 .field input:focus,.field textarea:focus{border-color:var(--orange);outline:none}
 .field input.ltr{direction:ltr;text-align:right}
+.datehint{display:block;margin-top:5px;color:var(--orange);font-weight:700;font-size:.9rem}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .seg{display:flex;flex-wrap:wrap;gap:6px}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{flex:1;min-width:80px;text-align:center;padding:10px 8px;border:1.5px solid var(--line);border-radius:10px;font-weight:700;margin:0;cursor:pointer}
 .seg input:checked+label{background:var(--orange);border-color:var(--orange);color:#fff}
 .seg input:focus-visible+label{outline:3px solid var(--orange);outline-offset:2px}
-.total-preview{background:var(--orange-soft);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;font-weight:700;margin-bottom:14px}
-.total-preview b{color:var(--orange);font-size:1.15rem}
 .upload{display:block;border:2px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);cursor:pointer}
 .upload:hover{border-color:var(--orange);color:var(--orange)}
 .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
@@ -136,7 +141,7 @@ td.num{direction:ltr;text-align:left}
 .viewer .sheet{max-width:720px}
 .viewer-img{width:100%;border-radius:10px;border:1px solid var(--line);margin-bottom:10px;display:block}
 
-.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:0 auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:700;z-index:60;opacity:0;transform:translateY(-10px);transition:.25s;pointer-events:none}
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:0 auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:700;z-index:60;opacity:0;transform:translateY(-10px);transition:.25s;pointer-events:none;text-align:center}
 .toast.show{opacity:1;transform:none}
 
 .autobox{border:2px solid var(--orange);background:var(--orange-soft);border-radius:14px;padding:14px;margin-bottom:16px}
@@ -147,63 +152,20 @@ td.num{direction:ltr;text-align:left}
 .autobox .keyrow{margin-top:10px}
 .autobox .keyrow input{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);direction:ltr}
 .autobox .keyrow small{color:var(--muted);display:block;margin-top:4px}
-.filled{animation:flash 1.2s ease}
-@keyframes flash{0%{background:var(--orange-soft)}100%{background:var(--bg)}}
 .sec-title{font-family:var(--display);font-weight:400;font-size:1.4rem;color:var(--orange);margin:22px 0 8px}
-table.days-table{min-width:460px}
-.chip.cook{background:transparent;border:1.5px solid var(--orange);color:var(--orange)}
-.qty-row{display:flex;gap:6px}
-.qty-row input{flex:1;min-width:0;text-align:center!important}
-.qbtn{width:44px;flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;font-weight:700;color:var(--orange)}
-.types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
-.tcol{display:flex;flex-direction:column;gap:6px}
-.seg .tcol label{min-width:0}
-.seg .tcol label.cook{font-size:.85rem;padding:6px 4px;font-weight:500;border-style:dashed}
-.seg .tcol input:checked+label.cook{border-style:solid}
-.t-row.sub span{font-size:.85rem}
-.seg label.anycook{flex:1 1 100%;margin-top:6px!important;font-size:.85rem;padding:7px;font-weight:500;border-style:dashed}
-.seg input:checked+label.anycook{border-style:solid}
-@media (max-width:520px){header.top{flex-wrap:wrap;align-items:stretch}.top-actions{width:100%}.top-actions .btn{flex:1;padding:10px}}
-.split{display:grid;gap:6px;margin-top:2px}
-.sp-row{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:8px}
-.sp-row span{font-weight:700}
-.sp-row input{padding:9px 12px!important}
-.sp-left{margin:2px 0 0;font-weight:700;font-size:.92rem}
-.sp-left.ok{color:var(--green)}.sp-left.bad{color:var(--red)}
 .link-btn{border:0;background:transparent;color:var(--orange);font-weight:700;padding:8px 0;margin-top:4px;text-decoration:underline;text-underline-offset:3px}
-.srow{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;align-items:center;background:var(--bg)}
-.srow.off{opacity:.45}
-.srow input,.srow select{width:100%;min-width:0;padding:7px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);font-size:.9rem}
-.srow .full{grid-column:2 / 4}
-.srow .chkcell{grid-row:span 4;display:flex;align-items:center;justify-content:center;padding-inline-end:4px}
-.srow .chkcell input{width:22px;height:22px;accent-color:var(--orange)}
-.srow .ltr{direction:ltr;text-align:right}
-.ssum{display:flex;justify-content:space-between;align-items:baseline;background:var(--orange-soft);border-radius:10px;padding:10px 14px;margin:6px 0 12px;font-weight:700}
-.ssum b{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--orange)}
 .print-only{display:none!important}
 .signs{display:flex;justify-content:space-between;gap:30px;margin-top:40px}
 .signs div{flex:1;border-top:1px solid #000;padding-top:6px;text-align:center}
-
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media print{
-  :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#444;--ticket:#fff;padding:0}
-  .no-print,.fab,.tabs,.picker,.sale-actions,.top-actions,td.act,th.act{display:none!important}
-  .print-only{display:block!important}
-  .signs.print-only{display:flex!important}
-  .wrap{padding:0;max-width:none}
-  .sale,.ticket{break-inside:avoid}
-  .table-box{overflow:visible;border:0}
-  table{min-width:0}
-}
-
 .muted{color:var(--muted);font-weight:400}
 .big-in{font-size:1.2rem!important;font-weight:700}
 .warn{color:var(--red)}
 .check-line{display:flex;align-items:center;gap:10px;font-weight:700;margin:4px 0 16px;padding:12px;border:1.5px dashed var(--line);border-radius:10px;cursor:pointer}
 .check-line input{width:22px;height:22px;accent-color:var(--orange)}
-.irow{display:grid;grid-template-columns:1.6fr .8fr .9fr 1fr auto;gap:5px;margin-bottom:6px}
+.icap{display:grid;grid-template-columns:1.6fr .8fr .9fr 1fr 24px;gap:5px;font-size:.75rem;color:var(--muted);font-weight:700;margin-bottom:4px}
+.irow{display:grid;grid-template-columns:1.6fr .8fr .9fr 1fr 24px;gap:5px;margin-bottom:6px}
 .irow input,.irow select{min-width:0;width:100%;padding:8px 6px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);font-size:.88rem}
-.irm{border:0;background:transparent;color:var(--red);font-size:1rem;padding:0 4px}
+.irm{border:0;background:transparent;color:var(--red);font-size:1rem;padding:0}
 .pay-group{margin-bottom:8px}
 .pay-head{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--orange);font-size:1.05rem}
 .pay-head b{color:var(--orange)}
@@ -213,7 +175,19 @@ table.days-table{min-width:460px}
 .items-list{list-style:none;margin:0;padding:8px 10px;background:var(--bg);border-radius:10px;font-size:.88rem}
 .items-list li{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:3px 0;border-bottom:1px dotted var(--line)}
 .items-list li:last-child{border-bottom:0}
-.tabs button{padding:10px 4px}
+
+@media (max-width:520px){header.top{align-items:stretch}.top-actions{width:100%}.top-actions .btn{flex:1;padding:10px 6px;font-size:.85rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#444;--ticket:#fff;padding:0}
+  .no-print,.fab,.tabs,.picker,.sale-actions,.top-actions,.cloud{display:none!important}
+  .print-only{display:block!important}
+  .signs.print-only{display:flex!important}
+  .wrap{padding:0;max-width:none}
+  .sale,.ticket{break-inside:avoid}
+  .table-box{overflow:visible;border:0}
+  table{min-width:0}
+}
 </style>
 </head>
 <body>
@@ -224,9 +198,12 @@ table.days-table{min-width:460px}
       <p>فواتير الموردين حسب طريقة الدفع — مطعم ومطبخ تنوركو</p>
     </div>
     <div class="top-actions">
-      <button class="btn ghost small" id="printBtn" type="button">🖨️ طباعة التقرير</button>
+      <button class="btn xl small" id="xlsBtn" type="button">📊 تنزيل Excel</button>
+      <button class="btn amin small" id="copyAllBtn" type="button">📋 نسخ للإكسل</button>
+      <button class="btn ghost small" id="printBtn" type="button">🖨️ طباعة</button>
     </div>
   </header>
+  <p class="cloud" id="cloud" role="status">⏳ جاري الاتصال…</p>
 
   <div class="print-only" id="printHead"></div>
 
@@ -246,6 +223,7 @@ table.days-table{min-width:460px}
     <input type="month" id="monthInput" aria-label="اختر الشهر">
     <button class="arrow" type="button" data-mstep="1" aria-label="الشهر التالي">←</button>
   </div>
+  <div class="datebig" id="dateBig"></div>
 
   <main id="content"></main>
 
@@ -258,28 +236,30 @@ table.days-table{min-width:460px}
 <button class="btn fab no-print" id="addBtn" type="button">＋ فاتورة مشتريات</button>
 
 <datalist id="supList"></datalist>
+<datalist id="itemList"></datalist>
 
 <div class="modal" id="formModal" aria-hidden="true">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="formTitle">
     <h2 id="formTitle">فاتورة مشتريات</h2>
     <div class="autobox" id="autoBox">
       <button class="btn" type="button" id="autoBtn">📷 تعبئة تلقائية من صورة الفاتورة</button>
-      <input type="file" id="fAuto" accept="image/*" hidden>
+      <input type="file" id="fAuto" accept="image/*" multiple hidden>
       <p class="status" id="autoStatus" role="status"></p>
       <div class="keyrow" id="keyRow" hidden>
         <input id="geminiKey" placeholder="ضع مفتاح Google Gemini هنا (مجاني)" autocomplete="off">
-        <small>يُحفظ المفتاح على هذا الجهاز فقط. نفس المفتاح حق موقع الذبائح.</small>
+        <small>يُستخدم فقط إذا تعذّر الاتصال بالسحابة.</small>
       </div>
     </div>
     <form id="pForm" novalidate onsubmit="return false">
       <div class="row2">
-        <div class="field"><label for="fDate">التاريخ</label><input type="date" id="fDate" class="ltr"></div>
+        <div class="field"><label for="fDate">📅 التاريخ</label><input type="date" id="fDate"><span class="datehint" id="fDateHint"></span></div>
         <div class="field"><label for="fInv">رقم الفاتورة</label><input id="fInv" class="ltr" placeholder="اختياري"></div>
       </div>
       <div class="field"><label for="fSup">المورد</label><input id="fSup" list="supList" autocomplete="off" placeholder="مثال: ملحمة الإمارات"></div>
 
       <div class="field">
-        <span class="lbl">الأصناف <small class="muted">(اختياري — تساعدك في الإدخال على Foodics)</small></span>
+        <span class="lbl">الأصناف <small class="muted">(بنفس ترتيب فاتورة الأمين)</small></span>
+        <div class="icap"><span>المادة</span><span>الكمية</span><span>الوحدة</span><span>الإجمالي</span><span></span></div>
         <div id="items"></div>
         <button type="button" class="link-btn" id="addItem">＋ إضافة صنف</button>
         <p class="hint" id="itemsSum"></p>
@@ -297,7 +277,7 @@ table.days-table{min-width:460px}
         </div>
       </div>
 
-      <label class="check-line"><input type="checkbox" id="fFoodics"> تم إدخالها في Foodics</label>
+      <label class="check-line"><input type="checkbox" id="fFoodics"> تم إدخالها في Foodics / الأمين</label>
 
       <div class="field"><label for="fNotes">ملاحظات</label><textarea id="fNotes" rows="2" placeholder="اختياري"></textarea></div>
       <div class="field">
@@ -337,15 +317,19 @@ table.days-table{min-width:460px}
 
 <script>
 (function(){
+const SUPABASE_URL="https://iekotptltmkjmieauhqc.supabase.co";
+const SUPABASE_KEY="sb_publishable_35u5V1apSr2-DCpjp8ltmg_gIJzhXEN";
+const TABLE="purchases", BUCKET="cash-receipts";
+
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
 const AR_DAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
 const AR_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 const PAYS=['كاش','فيزا','تحويل بنكي','آجل'];
 const PAY_ICON={'كاش':'💵','فيزا':'💳','تحويل بنكي':'🏦','آجل':'📒'};
-const UNITS=['كيلو','حبة','كرتون','جونية','لتر','علبة','ربطة'];
+const UNITS=['كيلو','حبة','كرتون','جونية','لتر','علبة','ربطة','بوكس'];
 
-let db=null, list=[], view='day';
+let sb=null, idb=null, list=[], view='day', cloud=false;
 let curDate=todayStr(), curMonth=todayStr().slice(0,7);
 let editingId=null, formImgs=[], pendingDelete=null;
 
@@ -354,24 +338,80 @@ function todayStr(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth
 function r2(n){return Math.round((+n||0)*100)/100}
 function money(n){return r2(n).toLocaleString('en-US',{maximumFractionDigits:2})+' د.إ'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function dayLabel(ds){const [y,m,d]=ds.split('-').map(Number);const dt=new Date(y,m-1,d);return AR_DAYS[dt.getDay()]+' '+d+' '+AR_MONTHS[m-1]+' '+y}
+function dayLabel(ds){if(!ds)return '';const [y,m,d]=ds.split('-').map(Number);const dt=new Date(y,m-1,d);return AR_DAYS[dt.getDay()]+' '+d+' '+AR_MONTHS[m-1]+' '+y}
+function dmy(ds){if(!ds)return '';const [y,m,d]=ds.split('-');return `${+d}/${+m}/${y}`}
 function monthLabel(ms){const [y,m]=ms.split('-').map(Number);return AR_MONTHS[m-1]+' '+y}
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2400)}
+function toast(msg,ms){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),ms||(msg.length>40?5000:2400))}
 function normPay(p){p=String(p||'');if(/كاش|نقد|cash/i.test(p))return 'كاش';if(/تحويل|transfer/i.test(p))return 'تحويل بنكي';if(/آجل|اجل|دين|credit/i.test(p))return 'آجل';if(/فيز|بطاق|شبك|visa|card|mada/i.test(p))return 'فيزا';return null}
+const loadScript=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)});
 
-/* ---------- storage ---------- */
-function openDB(){return new Promise((res,rej)=>{try{const r=indexedDB.open('tanourko-purchases',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
-function st(mode){return db.transaction('p',mode).objectStore('p')}
-function dbAll(){return new Promise((res,rej)=>{const q=st('readonly').getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
-function dbPut(o){if(!db)return Promise.resolve();return new Promise((res,rej)=>{const q=st('readwrite').put(o);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
-function dbDel(id){if(!db)return Promise.resolve();return new Promise((res,rej)=>{const q=st('readwrite').delete(id);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+/* ---------- التخزين المحلي القديم (للنقل والاحتياط) ---------- */
+function openIDB(){return new Promise((res,rej)=>{try{const r=indexedDB.open('tanourko-purchases',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+function ist(mode){return idb.transaction('p',mode).objectStore('p')}
+function idbAll(){return new Promise((res,rej)=>{const q=ist('readonly').getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
+function idbPut(o){return new Promise((res,rej)=>{const q=ist('readwrite').put(o);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+function idbDel(id){return new Promise((res,rej)=>{const q=ist('readwrite').delete(id);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
 
-/* ---------- summaries ---------- */
+/* ---------- السحابة (Supabase) ---------- */
+const toRow=x=>({id:x.id,created:x.created,date:x.date,supplier:x.supplier,inv_no:x.invNo||'',total:r2(x.total),pay:x.pay,items:x.items||[],foodics:!!x.foodics,notes:x.notes||'',images:x.images||[]});
+const fromRow=r=>({id:r.id,created:+r.created||0,date:r.date,supplier:r.supplier||'',invNo:r.inv_no||'',total:+r.total||0,pay:r.pay||'كاش',items:r.items||[],foodics:!!r.foodics,notes:r.notes||'',images:r.images||[]});
+function dataUrlToBlob(u){const [h,b]=u.split(',');const bin=atob(b);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a],{type:h.match(/:(.*?);/)[1]})}
+async function uploadImages(imgs,date){
+  const out=[];
+  for(const src of imgs){
+    if(!String(src).startsWith('data:')){out.push(src);continue}
+    const path=`purchases/${date}/${Date.now()}-${Math.random().toString(36).slice(2,7)}.jpg`;
+    const {error}=await sb.storage.from(BUCKET).upload(path,dataUrlToBlob(src),{contentType:'image/jpeg'});
+    if(error) throw new Error('رفع الصورة: '+error.message);
+    out.push(sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl);
+  }
+  return out;
+}
+async function savePurchase(rec){
+  if(cloud){
+    rec.images=await uploadImages(rec.images||[],rec.date);
+    const {error}=await sb.from(TABLE).upsert(toRow(rec));
+    if(error) throw new Error(error.message);
+  } else if(idb) await idbPut(rec); else throw new Error('لا يوجد تخزين');
+  return rec;
+}
+async function deletePurchase(x){
+  if(cloud){
+    const {error}=await sb.from(TABLE).delete().eq('id',x.id); if(error) throw new Error(error.message);
+    const paths=(x.images||[]).map(u=>String(u).split(`/${BUCKET}/`)[1]).filter(Boolean);
+    if(paths.length) await sb.storage.from(BUCKET).remove(paths);
+  } else if(idb) await idbDel(x.id);
+}
+async function loadAll(){
+  if(cloud){
+    const {data,error}=await sb.from(TABLE).select('*').order('date',{ascending:true}).order('created',{ascending:true});
+    if(error) throw new Error(error.message);
+    list=(data||[]).map(fromRow);
+  } else list=idb?await idbAll():[];
+}
+async function migrateLocal(){
+  if(!cloud||!idb) return;
+  let done=false;try{done=localStorage.getItem('tanourko-purchases-migrated')==='1'}catch(e){}
+  if(done) return;
+  const local=await idbAll().catch(()=>[]);
+  const have=new Set(list.map(x=>x.id));
+  const todo=local.filter(x=>!have.has(x.id));
+  if(!todo.length){try{localStorage.setItem('tanourko-purchases-migrated','1')}catch(e){};return}
+  setCloud(`⏳ جاري نقل ${todo.length} فاتورة محفوظة على هذا الجهاز إلى السحابة…`,true);
+  let ok=0;
+  for(const x of todo){try{await savePurchase({...x});ok++}catch(e){}}
+  await loadAll();
+  if(ok===todo.length){try{localStorage.setItem('tanourko-purchases-migrated','1')}catch(e){}}
+  toast(`✅ تم نقل ${ok} فاتورة من هذا الجهاز إلى السحابة`,5000);
+}
+function setCloud(msg,ok){const el=$('#cloud');el.textContent=msg;el.className='cloud '+(ok?'ok':'bad')}
+
+/* ---------- الملخصات ---------- */
 function summarize(arr){const s={total:0,n:arr.length,pending:0,pay:{}};PAYS.forEach(p=>s.pay[p]=0);arr.forEach(x=>{s.total+=+x.total||0;s.pay[x.pay]=(s.pay[x.pay]||0)+(+x.total||0);if(!x.foodics)s.pending++});return s}
 function ticket(title,s,label){
   let rows=`<div class="t-row"><span>عدد الفواتير</span><b>${s.n}</b></div>`;
-  PAYS.forEach(p=>rows+=`<div class="t-row pay-row"><span>${PAY_ICON[p]} ${p}</span><b>${money(s.pay[p])}</b></div>`);
-  rows+=`<div class="t-row"><span>لم تُدخل في Foodics</span><b class="${s.pending?'warn':''}">${s.pending}</b></div>`;
+  PAYS.forEach(p=>rows+=`<div class="t-row"><span>${PAY_ICON[p]} ${p}</span><b>${money(s.pay[p])}</b></div>`);
+  rows+=`<div class="t-row"><span>لم تُدخل بعد</span><b class="${s.pending?'warn':''}">${s.pending}</b></div>`;
   return `<section class="ticket"><h2>${title}</h2>${rows}<div class="t-total"><span>${label}</span><strong>${money(s.total)}</strong></div></section>`;
 }
 function card(x){
@@ -380,38 +420,48 @@ function card(x){
     <div class="sale-head"><div><div class="sale-name">${esc(x.supplier)}</div>${x.invNo?`<span class="sale-phone">فاتورة رقم ${esc(x.invNo)}</span>`:''}</div>
     <div class="sale-total">${money(x.total)}</div></div>
     <div class="chips">
-      ${view!=='day'?`<span class="chip">${dayLabel(x.date)}</span>`:''}
-      ${view!=='day'?`<span class="chip">${PAY_ICON[x.pay]} ${esc(x.pay)}</span>`:''}
+      <span class="chip date">📅 ${dayLabel(x.date)}</span>
+      <span class="chip">${PAY_ICON[x.pay]||''} ${esc(x.pay)}</span>
       ${items.length?`<span class="chip">${items.length} صنف</span>`:''}
       ${n?`<span class="chip">📎 ${n} صورة</span>`:''}
-      <button type="button" class="chip fd ${x.foodics?'yes':'no'}" data-fd="${x.id}">${x.foodics?'✅ في Foodics':'⏳ لم تُدخل في Foodics'}</button>
+      <button type="button" class="chip fd ${x.foodics?'yes':'no'}" data-fd="${x.id}">${x.foodics?'✅ تم الإدخال':'⏳ لم تُدخل'}</button>
     </div>
-    ${items.length?`<ul class="items-list">${items.map(i=>`<li><span>${esc(i.name)}</span><span>${esc(i.qty??'')} ${esc(i.unit||'')}</span><b>${i.price?money(i.price):''}</b></li>`).join('')}</ul>`:''}
+    ${items.length?`<ul class="items-list">${items.map(i=>`<li><span>${esc(i.name)}</span><span>${esc(i.qty??'')} ${esc(i.unit||'')}</span><b>${i.price!==''&&i.price!=null?money(i.price):''}</b></li>`).join('')}</ul>`:''}
     ${x.notes?`<p class="sale-notes">${esc(x.notes)}</p>`:''}
     <div class="sale-actions">
+      <button class="btn amin small" type="button" data-amin="${x.id}">📋 نسخ للأمين</button>
       <button class="btn ghost small" type="button" data-edit="${x.id}">✏️ تعديل</button>
-      <button class="btn ghost small" type="button" data-view-img="${x.id}" ${n?'':'disabled'}>🧾 الفاتورة</button>
+      <button class="btn ghost small" type="button" data-view-img="${x.id}" ${n?'':'disabled'}>🧾 الصور</button>
       <button class="btn danger small" type="button" data-del="${x.id}">🗑️ حذف</button>
     </div></article>`;
 }
+function currentList(){
+  if(view==='day') return list.filter(x=>x.date===curDate).sort((a,b)=>a.created-b.created);
+  if(view==='month') return list.filter(x=>x.date.slice(0,7)===curMonth).sort((a,b)=>a.date.localeCompare(b.date)||a.created-b.created);
+  return list.filter(x=>!x.foodics).sort((a,b)=>a.date.localeCompare(b.date)||a.created-b.created);
+}
+function currentTitle(){return view==='day'?'مشتريات '+dmy(curDate):view==='month'?'مشتريات '+monthLabel(curMonth):'فواتير لم تُدخل'}
 
-/* ---------- render ---------- */
+/* ---------- العرض ---------- */
 function render(){
   $('#dayInput').value=curDate;$('#monthInput').value=curMonth;
   $('#dayPicker').hidden=view!=='day';$('#monthPicker').hidden=view!=='month';
+  $('#dateBig').hidden=view==='pending';
+  $('#dateBig').innerHTML=view==='day'?`📅 ${dayLabel(curDate)} <small>${dmy(curDate)}</small>`:`📅 شهر ${monthLabel(curMonth)}`;
   $$('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.view===view));
   const pend=list.filter(x=>!x.foodics).length;$('#pendCount').textContent=pend?'('+pend+')':'';
   const sups=[...new Set(list.map(x=>x.supplier).filter(Boolean))].sort();$('#supList').innerHTML=sups.map(s=>`<option value="${esc(s)}">`).join('');
+  const its=[...new Set(list.flatMap(x=>(x.items||[]).map(i=>i.name)).filter(Boolean))].sort();$('#itemList').innerHTML=its.map(s=>`<option value="${esc(s)}">`).join('');
   const c=$('#content');
   if(view==='day'){
-    const arr=list.filter(x=>x.date===curDate).sort((a,b)=>a.created-b.created);
+    const arr=currentList();
     $('#printHead').innerHTML=`<h2>تقرير المشتريات اليومي</h2><p>${dayLabel(curDate)}</p>`;
     if(!arr.length){c.innerHTML=`<div class="empty">لا توجد مشتريات في ${dayLabel(curDate)}.<br><button class="btn" type="button" data-add>＋ إضافة فاتورة</button></div>`+ticket('ملخص اليوم',summarize([]),'إجمالي مشتريات اليوم');return}
     c.innerHTML=PAYS.map(p=>{const g=arr.filter(x=>x.pay===p);if(!g.length)return '';const t=g.reduce((a,x)=>a+(+x.total||0),0);
       return `<section class="pay-group"><h3 class="pay-head"><span>${PAY_ICON[p]} ${p}</span><span>${g.length} فاتورة · <b>${money(t)}</b></span></h3>${g.map(card).join('')}</section>`}).join('')
-      +ticket('ملخص اليوم',summarize(arr),'إجمالي مشتريات اليوم');
+      +ticket('ملخص '+dayLabel(curDate),summarize(arr),'إجمالي مشتريات اليوم');
   }else if(view==='month'){
-    const arr=list.filter(x=>x.date.slice(0,7)===curMonth);
+    const arr=currentList();
     $('#printHead').innerHTML=`<h2>تقرير المشتريات الشهري</h2><p>${monthLabel(curMonth)}</p>`;
     if(!arr.length){c.innerHTML=`<div class="empty">لا توجد مشتريات في ${monthLabel(curMonth)}.</div>`+ticket('ملخص الشهر',summarize([]),'إجمالي مشتريات الشهر');return}
     const days={};arr.forEach(x=>(days[x.date]=days[x.date]||[]).push(x));
@@ -424,90 +474,166 @@ function render(){
       <h3 class="sec-title">حسب المورد</h3><div class="table-box"><table><thead><tr><th>المورد</th><th>فواتير</th>${PAYS.map(p=>`<th>${p}</th>`).join('')}<th>الإجمالي</th></tr></thead><tbody>${sRows}</tbody></table></div>`
       +ticket('ملخص الشهر — '+monthLabel(curMonth),ms,'إجمالي مشتريات الشهر');
   }else{
-    const arr=list.filter(x=>!x.foodics).sort((a,b)=>a.date.localeCompare(b.date)||a.created-b.created);
-    $('#printHead').innerHTML=`<h2>فواتير لم تُدخل في Foodics</h2>`;
-    c.innerHTML=arr.length?`<p class="hint">${arr.length} فاتورة باقية. بعد ما تدخلها في Foodics اضغط على "⏳ لم تُدخل" فتصير ✅ وتختفي من هنا.</p>`+arr.map(card).join(''):`<div class="empty">✅ كل الفواتير مدخلة في Foodics.</div>`;
+    const arr=currentList();
+    $('#printHead').innerHTML=`<h2>فواتير لم تُدخل</h2>`;
+    c.innerHTML=arr.length?`<p class="hint">${arr.length} فاتورة باقية. بعد ما تدخلها في الأمين أو Foodics اضغط على "⏳ لم تُدخل" فتصير ✅ وتختفي من هنا.</p>`+arr.map(card).join(''):`<div class="empty">✅ كل الفواتير مدخلة.</div>`;
   }
 }
 
-/* ---------- modals ---------- */
+/* ---------- النوافذ ---------- */
 function openModal(id){const m=$(id);m.classList.add('open');m.setAttribute('aria-hidden','false')}
 function closeModal(m){m.classList.remove('open');m.setAttribute('aria-hidden','true')}
 $$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.hasAttribute('data-close'))closeModal(m)}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal.open').forEach(closeModal)});
 
-/* ---------- items editor ---------- */
+/* ---------- الأصناف ---------- */
 function itemRow(i){i=i||{};return `<div class="irow">
-  <input data-k="name" placeholder="الصنف" value="${esc(i.name||'')}">
+  <input data-k="name" list="itemList" placeholder="المادة" value="${esc(i.name||'')}">
   <input data-k="qty" class="ltr" inputmode="decimal" placeholder="الكمية" value="${esc(i.qty??'')}">
   <select data-k="unit">${UNITS.map(u=>`<option ${i.unit===u?'selected':''}>${u}</option>`).join('')}${i.unit&&!UNITS.includes(i.unit)?`<option selected>${esc(i.unit)}</option>`:''}</select>
-  <input data-k="price" class="ltr" inputmode="decimal" placeholder="المبلغ" value="${esc(i.price??'')}">
+  <input data-k="price" class="ltr" inputmode="decimal" placeholder="الإجمالي" value="${esc(i.price??'')}">
   <button type="button" class="irm" aria-label="حذف الصنف">✕</button></div>`}
 function readItems(){return $$('#items .irow').map(r=>{const g=k=>r.querySelector(`[data-k="${k}"]`).value.trim();return {name:g('name'),qty:g('qty')===''?'':r2(parseFloat(g('qty'))),unit:g('unit'),price:g('price')===''?'':r2(parseFloat(g('price')))}}).filter(i=>i.name||i.price)}
-function itemsSum(){const s=readItems().reduce((a,i)=>a+(+i.price||0),0);const t=+$('#fTotal').value||0;const el=$('#itemsSum');
-  if(!readItems().length){el.textContent='';return}
+function itemsSum(){const its=readItems(),s=its.reduce((a,i)=>a+(+i.price||0),0);const t=+$('#fTotal').value||0;const el=$('#itemsSum');
+  if(!its.length){el.textContent='';return}
   el.innerHTML=`مجموع الأصناف: <b>${money(s)}</b>`+(t&&Math.abs(s-t)>0.01?` — <span class="warn">يختلف عن الإجمالي بـ ${money(t-s)}</span>`:(t?' ✅':''));}
 $('#addItem').addEventListener('click',()=>{$('#items').insertAdjacentHTML('beforeend',itemRow());itemsSum()});
 $('#items').addEventListener('click',e=>{const b=e.target.closest('.irm');if(b){b.parentElement.remove();itemsSum()}});
 $('#items').addEventListener('input',itemsSum);$('#fTotal').addEventListener('input',itemsSum);
 
-/* ---------- images ---------- */
+/* ---------- الصور ---------- */
 function drawThumbs(){$('#fThumbs').innerHTML=formImgs.map((src,i)=>`<div class="thumb"><img src="${src}" alt="صورة ${i+1}"><button type="button" data-rm="${i}" aria-label="حذف الصورة">✕</button></div>`).join('')}
 $('#fThumbs').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(b){formImgs.splice(+b.dataset.rm,1);drawThumbs()}});
-function compress(file,max0,q0){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const img=new Image();img.onload=()=>{const max=max0||1600;let w=img.width,h=img.height;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);res(cv.toDataURL('image/jpeg',q0||0.78))};img.onerror=()=>rej({code:'image_rejected',detail:'صيغة الصورة '+(file.type||'غير معروفة')});img.src=fr.result};fr.onerror=()=>rej(fr.error);fr.readAsDataURL(file)})}
+function compress(file,max0,q0){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const img=new Image();img.onload=()=>{const max=max0||1600;let w=img.width,h=img.height;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);res(cv.toDataURL('image/jpeg',q0||0.78))};img.onerror=()=>rej({code:'image_rejected'});img.src=fr.result};fr.onerror=()=>rej(fr.error);fr.readAsDataURL(file)})}
 $('#fImages').addEventListener('change',async e=>{const fs=Array.from(e.target.files||[]);e.target.value='';for(const f of fs){try{formImgs.push(await compress(f))}catch(err){toast('تعذّر قراءة إحدى الصور')}}drawThumbs()});
 
-/* ---------- form ---------- */
-const AUTO_HINT='صوّر فاتورة المورد وسيتم تعبئة المورد ورقم الفاتورة والأصناف والإجمالي وطريقة الدفع. راجع قبل الحفظ.';
+/* ---------- النموذج ---------- */
+const AUTO_HINT='صوّر فاتورة المورد (صورة أو أكثر للفاتورة الطويلة) وسيتم تعبئة المورد ورقم الفاتورة والتاريخ والأصناف والإجمالي. راجع قبل الحفظ.';
+function updDateHint(){const v=$('#fDate').value;$('#fDateHint').textContent=v?dayLabel(v)+' — '+dmy(v):'⚠️ اختر التاريخ'}
+$('#fDate').addEventListener('input',updDateHint);$('#fDate').addEventListener('change',updDateHint);
 function openForm(id){
   editingId=id||null;const x=id?list.find(s=>s.id===id):null;
   $('#formTitle').textContent=x?'تعديل الفاتورة':'فاتورة مشتريات';$('#saveBtn').textContent=x?'حفظ التعديل':'حفظ';
-  $('#fDate').value=x?x.date:(view==='day'?curDate:todayStr());
+  $('#fDate').value=x?x.date:(view==='day'?curDate:todayStr());updDateHint();
   $('#fSup').value=x?x.supplier:'';$('#fInv').value=x?x.invNo||'':'';$('#fTotal').value=x?x.total:'';
   $('#fNotes').value=x?x.notes||'':'';$('#fFoodics').checked=!!(x&&x.foodics);
   const p=$$('input[name="fPay"]').find(r=>r.value===(x?x.pay:'كاش'))||$('#pCash');p.checked=true;
   $('#items').innerHTML=(x&&x.items||[]).map(itemRow).join('');itemsSum();
   formImgs=x?[...(x.images||[])]:[];drawThumbs();setAutoStatus(AUTO_HINT);
+  delete $('#saveBtn').dataset.force;
   openModal('#formModal');
 }
 $('#saveBtn').addEventListener('click',async()=>{
-  const date=$('#fDate').value,supplier=$('#fSup').value.trim(),total=parseFloat($('#fTotal').value);
-  if(!date){toast('اختر التاريخ');return}
+  const btn=$('#saveBtn');
+  const date=$('#fDate').value,supplier=$('#fSup').value.trim();
+  let total=parseFloat($('#fTotal').value);
+  if(!date){toast('اختر التاريخ');$('#fDate').focus();return}
   if(!supplier){toast('اكتب اسم المورد');$('#fSup').focus();return}
-  if(!(total>=0)){toast('اكتب إجمالي الفاتورة');$('#fTotal').focus();return}
+  const items=readItems();
+  if(!(total>=0)){const s=items.reduce((a,i)=>a+(+i.price||0),0);if(s>0){total=s;$('#fTotal').value=r2(s)}else{toast('اكتب إجمالي الفاتورة');$('#fTotal').focus();return}}
   const invNo=$('#fInv').value.trim();
   const dup=invNo&&list.find(x=>x.id!==editingId&&x.invNo===invNo&&x.supplier===supplier);
-  if(dup&&!$('#saveBtn').dataset.force){$('#saveBtn').dataset.force='1';toast('⚠️ نفس رقم الفاتورة لنفس المورد موجود بتاريخ '+dup.date+'. اضغط حفظ مرة ثانية إذا متأكد.');return}
-  delete $('#saveBtn').dataset.force;
+  if(dup&&!btn.dataset.force){btn.dataset.force='1';toast('⚠️ نفس رقم الفاتورة لنفس المورد موجود بتاريخ '+dmy(dup.date)+'. اضغط حفظ مرة ثانية إذا متأكد.');return}
+  delete btn.dataset.force;
   const old=editingId?list.find(s=>s.id===editingId):null;
   const rec={id:old?old.id:'p'+Date.now()+Math.random().toString(36).slice(2,6),created:old?old.created:Date.now(),date,supplier,invNo,total:r2(total),
-    pay:$('input[name="fPay"]:checked').value,items:readItems(),foodics:$('#fFoodics').checked,notes:$('#fNotes').value.trim(),images:[...formImgs]};
-  try{await dbPut(rec)}catch(e){toast('لم يتم الحفظ: التخزين ممتلئ أو غير متاح');return}
+    pay:$('input[name="fPay"]:checked').value,items,foodics:$('#fFoodics').checked,notes:$('#fNotes').value.trim(),images:[...formImgs]};
+  btn.disabled=true;const oldTxt=btn.textContent;btn.textContent='⏳ جاري الحفظ…';
+  try{await savePurchase(rec)}
+  catch(e){toast('❌ لم يتم الحفظ: '+(e.message||e)+' — الفاتورة باقية في النموذج، جرّب مرة ثانية',7000);btn.disabled=false;btn.textContent=oldTxt;return}
+  btn.disabled=false;btn.textContent=oldTxt;
   if(old)list[list.indexOf(old)]=rec;else list.push(rec);
-  closeModal($('#formModal'));if(view==='day')curDate=date;else if(view==='month')curMonth=date.slice(0,7);
-  render();toast(old?'تم حفظ التعديل':'تمت الإضافة');
+  closeModal($('#formModal'));
+  curDate=date;curMonth=date.slice(0,7);if(view==='pending'&&rec.foodics)view='day';
+  render();toast((old?'✅ تم حفظ التعديل':'✅ تم الحفظ')+' — '+dayLabel(date));
 });
 
-/* ---------- clicks ---------- */
+/* ---------- النسخ والتصدير ---------- */
+async function copyText(t){
+  try{await navigator.clipboard.writeText(t);return true}
+  catch(e){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}ta.remove();return ok}
+}
+const clean=v=>String(v??'').replace(/[\t\n\r]+/g,' ').trim();
+function aminRows(x){
+  const its=(x.items||[]).filter(i=>i.name||i.price);
+  if(!its.length) return [[clean(x.notes||'مشتريات '+x.supplier),'',1,r2(x.total),r2(x.total)]];
+  return its.map(i=>{const q=+i.qty||1,p=+i.price||0;return [clean(i.name),clean(i.unit),i.qty===''?1:q,r2(p/q),r2(p)]});
+}
+// ترتيب أعمدة الأمين: المادة | الوحدة | الكمية | الإفرادي | الإجمالي
+const AMIN_HEAD=['المادة','الوحدة','الكمية','الإفرادي','الإجمالي'];
+const FULL_HEAD=['التاريخ','المورد','رقم الفاتورة','طريقة الدفع',...AMIN_HEAD,'إجمالي الفاتورة','ملاحظات'];
+function fullRows(arr){
+  const rows=[];
+  arr.forEach(x=>aminRows(x).forEach((r,k)=>rows.push([dmy(x.date),clean(x.supplier),clean(x.invNo),x.pay,...r,k===0?r2(x.total):'',k===0?clean(x.notes):''])));
+  return rows;
+}
+async function copyAmin(x){
+  const tsv=aminRows(x).map(r=>r.join('\t')).join('\n');
+  const ok=await copyText(tsv);
+  toast(ok?`✅ تم نسخ ${aminRows(x).length} سطر للأمين — المورد: ${x.supplier} · التاريخ: ${dmy(x.date)} · الدفع: ${x.pay}. افتح الفاتورة في الأمين واضغط على أول خانة "المادة" ثم الصق`:'تعذّر النسخ',7000);
+}
+$('#copyAllBtn').addEventListener('click',async()=>{
+  const arr=currentList();if(!arr.length){toast('لا توجد فواتير للنسخ');return}
+  const tsv=[FULL_HEAD,...fullRows(arr)].map(r=>r.join('\t')).join('\n');
+  const ok=await copyText(tsv);
+  toast(ok?`✅ تم نسخ ${arr.length} فاتورة. افتح Excel واضغط على الخانة A1 ثم الصق`:'تعذّر النسخ',5000);
+});
+$('#xlsBtn').addEventListener('click',async()=>{
+  const arr=currentList();if(!arr.length){toast('لا توجد فواتير للتصدير');return}
+  const btn=$('#xlsBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='⏳ جاري التجهيز…';
+  try{
+    if(!window.XLSX) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
+    const wb=XLSX.utils.book_new();
+    const ws1=XLSX.utils.aoa_to_sheet([FULL_HEAD,...fullRows(arr)]);
+    ws1['!cols']=[{wch:11},{wch:22},{wch:12},{wch:11},{wch:24},{wch:8},{wch:8},{wch:10},{wch:11},{wch:13},{wch:20}];
+    XLSX.utils.book_append_sheet(wb,ws1,'المشتريات');
+    // ورقة جاهزة للأمين: كل فاتورة بعنوانها وتحته الأصناف بنفس ترتيب الأمين
+    const aoa=[];
+    arr.forEach(x=>{aoa.push([`▼ ${x.supplier} — ${dmy(x.date)} — ${x.pay}${x.invNo?' — رقم '+x.invNo:''} — الإجمالي ${r2(x.total)}`]);aoa.push(AMIN_HEAD);aminRows(x).forEach(r=>aoa.push(r));aoa.push([])});
+    const ws2=XLSX.utils.aoa_to_sheet(aoa);ws2['!cols']=[{wch:28},{wch:8},{wch:8},{wch:10},{wch:11}];
+    XLSX.utils.book_append_sheet(wb,ws2,'للأمين');
+    const s=summarize(arr);
+    const ws3=XLSX.utils.aoa_to_sheet([['البند','المبلغ'],...PAYS.map(p=>[p,r2(s.pay[p])]),['الإجمالي',r2(s.total)],['عدد الفواتير',s.n]]);
+    ws3['!cols']=[{wch:16},{wch:12}];
+    XLSX.utils.book_append_sheet(wb,ws3,'الملخص');
+    wb.Workbook={Views:[{RTL:true}]};
+    const name=(currentTitle()+'.xlsx').replace(/[\/\\]/g,'-').replace(/\s+/g,'_');
+    const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+    const file=new File([out],name,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})&&/iPhone|iPad|Android/i.test(navigator.userAgent)){try{await navigator.share({files:[file],title:currentTitle()})}catch(e){if(e.name!=='AbortError')throw e}}
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();a.remove();toast('✅ تم تنزيل ملف Excel')}
+  }catch(e){toast('تعذّر تجهيز ملف Excel: '+(e.message||e),6000)}
+  finally{btn.disabled=false;btn.textContent=old}
+});
+
+/* ---------- الضغطات ---------- */
 document.addEventListener('click',async e=>{
-  const t=e.target.closest('[data-add],[data-edit],[data-del],[data-view-img],[data-step],[data-mstep],[data-view],[data-fd],[data-goday]');if(!t)return;
+  const t=e.target.closest('[data-add],[data-edit],[data-del],[data-view-img],[data-step],[data-mstep],[data-view],[data-fd],[data-goday],[data-amin]');if(!t)return;
   if(t.hasAttribute('data-add'))openForm();
+  else if(t.dataset.amin){const x=list.find(s=>s.id===t.dataset.amin);if(x)copyAmin(x)}
   else if(t.dataset.edit)openForm(t.dataset.edit);
-  else if(t.dataset.fd){const x=list.find(s=>s.id===t.dataset.fd);if(!x)return;x.foodics=!x.foodics;try{await dbPut(x)}catch(err){}render();toast(x.foodics?'✅ تم تعليمها: مدخلة في Foodics':'رجعت: لم تُدخل')}
-  else if(t.dataset.del){const x=list.find(s=>s.id===t.dataset.del);if(!x)return;pendingDelete=x.id;$('#confirmText').textContent=`سيتم حذف فاتورة ${x.supplier} بمبلغ ${money(x.total)} (${x.pay}) مع صورها.`;openModal('#confirmModal')}
-  else if(t.dataset.viewImg){const x=list.find(s=>s.id===t.dataset.viewImg);if(!x)return;$('#viewTitle').textContent='فاتورة '+x.supplier;$('#viewBody').innerHTML=(x.images||[]).map((src,i)=>`<img class="viewer-img" src="${src}" alt="صورة ${i+1}">`).join('');openModal('#viewModal')}
+  else if(t.dataset.fd){const x=list.find(s=>s.id===t.dataset.fd);if(!x)return;x.foodics=!x.foodics;render();
+    try{if(cloud){const {error}=await sb.from(TABLE).update({foodics:x.foodics}).eq('id',x.id);if(error)throw error}else if(idb)await idbPut(x)}
+    catch(err){x.foodics=!x.foodics;render();toast('لم يتم الحفظ، تحقق من الإنترنت');return}
+    toast(x.foodics?'✅ تم تعليمها: مدخلة':'رجعت: لم تُدخل')}
+  else if(t.dataset.del){const x=list.find(s=>s.id===t.dataset.del);if(!x)return;pendingDelete=x.id;$('#confirmText').textContent=`سيتم حذف فاتورة ${x.supplier} بمبلغ ${money(x.total)} (${x.pay}) بتاريخ ${dmy(x.date)} مع صورها.`;openModal('#confirmModal')}
+  else if(t.dataset.viewImg){const x=list.find(s=>s.id===t.dataset.viewImg);if(!x)return;$('#viewTitle').textContent='فاتورة '+x.supplier+' — '+dmy(x.date);$('#viewBody').innerHTML=(x.images||[]).map((src,i)=>`<img class="viewer-img" src="${src}" alt="صورة ${i+1}">`).join('');openModal('#viewModal')}
   else if(t.dataset.step){const [y,m,d]=curDate.split('-').map(Number);const dt=new Date(y,m-1,d+ +t.dataset.step);curDate=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());render()}
   else if(t.dataset.mstep){const [y,m]=curMonth.split('-').map(Number);const dt=new Date(y,m-1+ +t.dataset.mstep,1);curMonth=dt.getFullYear()+'-'+pad(dt.getMonth()+1);render()}
   else if(t.dataset.goday){curDate=t.dataset.goday;view='day';render()}
   else if(t.dataset.view){view=t.dataset.view;render()}
 });
-$('#confirmYes').addEventListener('click',async()=>{if(!pendingDelete)return;try{await dbDel(pendingDelete)}catch(e){}list=list.filter(s=>s.id!==pendingDelete);pendingDelete=null;closeModal($('#confirmModal'));render();toast('تم الحذف')});
+$('#confirmYes').addEventListener('click',async()=>{
+  if(!pendingDelete)return;const x=list.find(s=>s.id===pendingDelete);
+  try{await deletePurchase(x)}catch(e){toast('لم يتم الحذف: '+(e.message||e));return}
+  list=list.filter(s=>s.id!==pendingDelete);pendingDelete=null;closeModal($('#confirmModal'));render();toast('تم الحذف');
+});
 $('#addBtn').addEventListener('click',()=>openForm());
 $('#dayInput').addEventListener('change',e=>{if(e.target.value){curDate=e.target.value;render()}});
 $('#monthInput').addEventListener('change',e=>{if(e.target.value){curMonth=e.target.value;render()}});
 $('#printBtn').addEventListener('click',()=>{try{window.print()}catch(e){toast('الطباعة غير متاحة هنا')}});
 
-/* ---------- auto-fill ---------- */
+/* ---------- التعبئة التلقائية ---------- */
 const AUTO_PROMPT=`هذه صورة فاتورة مشتريات من مورد لمطعم تنوركو في الإمارات. اقرأها واستخرج البيانات.
 أرجع JSON فقط بدون أي كلام آخر، بهذا الشكل:
 {"supplier":string|null,"invNo":string|null,"date":"YYYY-MM-DD"|null,"total":number|null,"pay":"كاش"|"فيزا"|"تحويل بنكي"|"آجل"|null,"items":[{"name":string,"qty":number|null,"unit":string|null,"price":number|null}]}
@@ -515,147 +641,90 @@ const AUTO_PROMPT=`هذه صورة فاتورة مشتريات من مورد ل�
 - invNo: رقم الفاتورة.
 - total: المبلغ الإجمالي النهائي المطلوب دفعه شامل الضريبة.
 - pay: كاش/نقدي ← "كاش"، فيزا/بطاقة/شبكة/مدى ← "فيزا"، تحويل ← "تحويل بنكي"، آجل/على الحساب/دين ← "آجل". إذا غير مكتوب اكتب null.
-- items: كل صنف في الفاتورة. unit واحدة من: كيلو، حبة، كرتون، جونية، لتر، علبة، ربطة إن أمكن. price = إجمالي سطر الصنف وليس سعر الوحدة.
+- items: كل صنف في الفاتورة. unit واحدة من: كيلو، حبة، كرتون، جونية، لتر، علبة، ربطة، بوكس إن أمكن. price = إجمالي سطر الصنف وليس سعر الوحدة.
 - date: تاريخ الفاتورة (يوم/شهر/سنة) بصيغة YYYY-MM-DD.
 - حوّل الأرقام العربية (٠-٩) إلى إنجليزية. أي قيمة غير واضحة اكتبها null.`;
-const GEMINI_MODELS=['gemini-3.6-flash','gemini-flash-latest','gemini-3.5-flash','gemini-3.1-flash-lite','gemini-flash-lite-latest'];
-let sampleFn=null, autoMode='wait';
 function setAutoStatus(msg,cls){const el=$('#autoStatus');el.textContent=msg;el.className='status'+(cls?' '+cls:'')}
-function initAuto(){
-  if(window.claude&&typeof window.claude.use==='function'){
-    claude.use('sample').then(async s=>{
-      const lim=s?await s.limits().catch(()=>null):null;
-      if(s&&lim&&lim.images){sampleFn=s;autoMode='claude'}else{autoMode='off';$('#autoBox').hidden=true}
-    }).catch(()=>{autoMode='off';$('#autoBox').hidden=true});
-  }else{
-    autoMode='gemini';$('#keyRow').hidden=false;
-    try{$('#geminiKey').value=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}
-    $('#geminiKey').addEventListener('change',e=>{try{localStorage.setItem('tanourko-gemini-key',e.target.value.trim())}catch(err){}});
+async function readEdge(dataUrl,st){
+  const image=dataUrl.split(',')[1];let msg='';
+  for(let a=0;a<3;a++){
+    const {data,error}=await sb.functions.invoke('read-invoice',{body:{image,media_type:'image/jpeg',prompt:AUTO_PROMPT,models:['gemini-flash-latest','gemini-flash-lite-latest','gemini-2.5-flash']}});
+    if(!error&&data&&!data.error) return data;
+    msg=(data&&data.error)||(error&&error.message)||'خطأ';
+    try{const j=await error.context.json();if(j&&j.error)msg=j.error}catch(_){}
+    if(!/quota|rate|429|503|overload|UNAVAILABLE|RESOURCE_EXHAUSTED|demand|try again|غير مكتمل/i.test(msg)||a===2) break;
+    st(`⏳ Gemini مشغول، إعادة المحاولة (${a+2}/3)…`);await new Promise(r=>setTimeout(r,(a+1)*8000));
   }
+  throw {code:/quota|rate|429|503|demand|UNAVAILABLE/i.test(msg)?'busy':'net',detail:msg};
 }
-function dataUrlToBlob(u){const [h,b]=u.split(',');const bin=atob(b);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a],{type:h.match(/:(.*?);/)[1]})}
-function parseJSON(t){t=String(t||'').replace(/```json|```/g,'').trim();const a=t.indexOf('{'),b=t.lastIndexOf('}');return JSON.parse(t.slice(a,b+1))}
-async function listGeminiModels(key){
-  try{
-    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',{headers:{'x-goog-api-key':key}});
-    if(!r.ok)return [];
-    const d=await r.json();
-    const ver=n=>{const m=n.match(/gemini-(\d+(?:\.\d+)?)/);return m?parseFloat(m[1]):0};
-    return (d.models||[])
-      .filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent'))
-      .map(m=>m.name.replace('models/',''))
-      .filter(n=>/^gemini-.*flash/.test(n)&&!/(tts|image|live|audio|embed|thinking|exp|robotics|computer)/.test(n))
-      .sort((x,y)=>ver(y)-ver(x)||(/lite/.test(x)?1:0)-(/lite/.test(y)?1:0));
-  }catch(e){return []}
-}
-let geminiWay=null;
-async function geminiPost(model,key,body){
-  const base=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-  const ways=[
-    ()=>fetch(base,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body}),
-    ()=>fetch(base+'?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body}),
-    ()=>fetch(base+'?key='+encodeURIComponent(key),{method:'POST',body})
-  ];
-  const order=geminiWay!==null?[geminiWay,...[0,1,2].filter(i=>i!==geminiWay)]:[0,1,2];
-  let errs=[];
-  for(const i of order){
-    try{const r=await ways[i]();geminiWay=i;return r}
-    catch(e){errs.push(i+':'+(e&&e.message||'fail'))}
-  }
-  throw {code:'net',detail:'no-connection '+errs.join(' | ')};
-}
-function getKey(){let k=($('#geminiKey').value||'').trim();if(!k){try{k=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}}return k.replace(/\s+/g,'')}
-async function readWithGemini(dataUrl,prompt,st){
-  prompt=prompt||AUTO_PROMPT;st=st||setAutoStatus;
-  const key=getKey();
-  if(!key)throw {code:'no_key'};
-  const body=JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:'image/jpeg',data:dataUrl.split(',')[1]}}]}],generationConfig:{response_mime_type:'application/json',temperature:0,maxOutputTokens:8192}});
-  let saved='';try{saved=localStorage.getItem('tanourko-gemini-model')||''}catch(e){}
-  let models=[saved,...GEMINI_MODELS].filter(Boolean);
-  let listed=false,tried=new Set(),lastErr={code:'net'},busy=0;
-  for(let i=0;i<models.length&&tried.size<12;i++){
-    const model=models[i];if(tried.has(model))continue;tried.add(model);
+async function readDirect(dataUrl,st){
+  let key=($('#geminiKey').value||'').trim();if(!key){try{key=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}}
+  if(!key) throw {code:'no_key'};
+  try{localStorage.setItem('tanourko-gemini-key',key)}catch(e){}
+  const body=JSON.stringify({contents:[{parts:[{text:AUTO_PROMPT},{inline_data:{mime_type:'image/jpeg',data:dataUrl.split(',')[1]}}]}],generationConfig:{response_mime_type:'application/json',temperature:0}});
+  for(const model of ['gemini-flash-latest','gemini-flash-lite-latest','gemini-2.5-flash']){
     st('⏳ جاري القراءة… ('+model+')');
-    const r=await geminiPost(model,key,body);
-    if(r.ok){
-      try{localStorage.setItem('tanourko-gemini-model',model)}catch(e){}
-      let d=null,txt='';
-      try{d=await r.json();txt=(d?.candidates?.[0]?.content?.parts||[]).filter(p=>!p.thought).map(p=>p.text||'').join('');return parseJSON(txt)}
-      catch(pe){
-        const why=d?.promptFeedback?.blockReason||d?.candidates?.[0]?.finishReason||'';
-        lastErr={code:'parse',detail:model+' '+why+' '+String(txt).slice(0,80)};
-        if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
-        continue;
-      }
-    }
-    let detail='';try{const j=await r.json();detail=(j?.error?.status||'')+' '+(j?.error?.message||'')}catch(e){}
-    if(r.status===404||(r.status===400&&/model|not found|not supported/i.test(detail))){
-      lastErr={code:'net',detail:r.status+' '+model};
-      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
-      continue;
-    }
-    if(r.status===401||r.status===403){
-      lastErr={code:'bad_key',detail:r.status+' '+model+' '+detail};
-      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
-      continue;
-    }
-    if(r.status===503||r.status===500||r.status===429){
-      busy=(busy||0)+1;
-      lastErr={code:r.status===429?'rate_limited':'busy',detail:r.status+' '+model};
-      if(busy<=2){st('⏳ Gemini مشغول، أعيد المحاولة…');await new Promise(z=>setTimeout(z,2500*busy));tried.delete(model);i--;continue}
-      busy=0;
-      if(i===models.length-1&&!listed){listed=true;models=models.concat(await listGeminiModels(key))}
-      continue;
-    }
-    if(r.status===400)throw {code:'bad_key',detail:r.status+' '+detail};
-    if(r.status===429)throw {code:'rate_limited',detail:'429'};
-    throw {code:'net',detail:r.status+' '+detail};
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body});
+    if(!r.ok) continue;
+    const d=await r.json();const txt=(d?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('');
+    try{return JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1))}catch(e){continue}
   }
-  throw lastErr;
+  throw {code:'busy'};
 }
-function applyAuto(o){
-  let n=0;
-  if(o.supplier){$('#fSup').value=o.supplier;n++}
-  if(o.invNo){$('#fInv').value=String(o.invNo);n++}
-  if(o.date&&/^\d{4}-\d{2}-\d{2}$/.test(o.date)){$('#fDate').value=o.date;n++}
-  if(+o.total>0){$('#fTotal').value=r2(o.total);n++}
-  const pv=normPay(o.pay);if(pv){const r=$$('input[name="fPay"]').find(x=>x.value===pv);if(r){r.checked=true;n++}}
-  if(Array.isArray(o.items)&&o.items.length){$('#items').innerHTML=o.items.map(i=>itemRow({name:i.name||'',qty:i.qty??'',unit:i.unit||'كيلو',price:i.price??''})).join('');n++}
-  if(!(+o.total>0)){const s=readItems().reduce((a,i)=>a+(+i.price||0),0);if(s)$('#fTotal').value=r2(s)}
+function applyAuto(res,append){
+  let n=0;const first=k=>{const d=res.find(o=>o&&o[k]);return d?d[k]:null};
+  if(first('supplier')){$('#fSup').value=first('supplier');n++}
+  if(first('invNo')){$('#fInv').value=String(first('invNo'));n++}
+  const dt=res.map(o=>o&&o.date).find(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||''));if(dt){$('#fDate').value=dt;updDateHint();n++}
+  const tot=[...res].reverse().map(o=>+(o&&o.total)||0).find(v=>v>0);if(tot){$('#fTotal').value=r2(tot);n++}
+  const pv=normPay(first('pay'));if(pv){const r=$$('input[name="fPay"]').find(x=>x.value===pv);if(r){r.checked=true;n++}}
+  const items=[];res.forEach(o=>(o&&Array.isArray(o.items)?o.items:[]).forEach(i=>{const it={name:i.name||'',qty:i.qty??'',unit:i.unit||'كيلو',price:i.price??''};if(!items.some(b=>b.name===it.name&&+b.qty===+it.qty&&+b.price===+it.price))items.push(it)}));
+  if(items.length){const html=items.map(itemRow).join('');if(append)$('#items').insertAdjacentHTML('beforeend',html);else $('#items').innerHTML=html;n++}
+  if(!tot){const s=readItems().reduce((a,i)=>a+(+i.price||0),0);if(s)$('#fTotal').value=r2(s)}
   itemsSum();return n;
 }
 $('#autoBtn').addEventListener('click',()=>{
-  if(autoMode==='wait'){setAutoStatus('لحظة… حاول بعد ثوانٍ.');return}
-  if(autoMode==='gemini'&&!getKey()){setAutoStatus('ضع مفتاح Gemini أولًا ثم صوّر الفاتورة.','err');$('#geminiKey').focus();return}
+  if(!cloud){$('#keyRow').hidden=false;try{$('#geminiKey').value=localStorage.getItem('tanourko-gemini-key')||''}catch(e){}}
   $('#fAuto').click();
 });
 $('#fAuto').addEventListener('change',async e=>{
-  const f=(e.target.files||[])[0];e.target.value='';if(!f)return;
-  const btn=$('#autoBtn');btn.disabled=true;setAutoStatus('⏳ جاري قراءة الفاتورة… قد يأخذ حتى دقيقة.');
+  const files=Array.from(e.target.files||[]);e.target.value='';if(!files.length)return;
+  const btn=$('#autoBtn');btn.disabled=true;
+  const append=readItems().length>0&&confirm('فيه أصناف موجودة في الفاتورة. تبي تضيف أصناف الصفحة الجديدة لها؟\n(موافق = إضافة، إلغاء = استبدال)');
+  const res=[];
   try{
-    const dataUrl=await compress(f,2000,0.82);formImgs.push(dataUrl);drawThumbs();
-    let o;
-    if(autoMode==='claude')o=await sampleFn.json(AUTO_PROMPT,{images:[dataUrlToBlob(dataUrl)],cache:false});
-    else o=await readWithGemini(dataUrl,AUTO_PROMPT,setAutoStatus);
-    const n=applyAuto(o||{});
-    if(n){setAutoStatus(`✅ تمت التعبئة، والصورة أُضيفت للفاتورة. راجع البيانات${normPay(o&&o.pay)?'':' واختر طريقة الدفع'} ثم اضغط حفظ.`,'ok')}
-    else setAutoStatus('ما لقيت بيانات واضحة. الصورة أُضيفت، أكمل يدويًا.','err');
+    for(let i=0;i<files.length;i++){
+      const st=m=>setAutoStatus((files.length>1?`صفحة ${i+1} من ${files.length}: `:'')+m);
+      st('⏳ جاري قراءة الفاتورة… قد يأخذ حتى دقيقة.');
+      const dataUrl=await compress(files[i],2000,0.82);formImgs.push(dataUrl);drawThumbs();
+      try{res.push(cloud?await readEdge(dataUrl,st):await readDirect(dataUrl,st))}
+      catch(err){if(files.length===1)throw err;toast(`تعذّرت قراءة الصفحة ${i+1}`)}
+    }
+    const n=res.length?applyAuto(res,append):0;
+    if(n) setAutoStatus(`✅ تمت التعبئة${files.length>1?` من ${res.length} صفحات`:''}. راجع البيانات واختر طريقة الدفع إذا ما انقرت، ثم اضغط حفظ.`,'ok');
+    else setAutoStatus('ما لقيت بيانات واضحة. الصور أُضيفت، أكمل يدويًا.','err');
   }catch(err){
     const c=err&&err.code;
-    const msg={not_granted:'لم يتم السماح بقراءة الصورة.',rate_limited:'محاولات كثيرة، انتظر دقيقة.',busy:'خدمة Gemini مزدحمة الآن، حاول بعد دقيقة.',bad_key:'Gemini رفض المفتاح.',no_key:'ضع مفتاح Gemini أولًا.',image_rejected:'الصورة غير مدعومة.',parse:'ما قدر يقرأ الفاتورة بوضوح، جرّب صورة أوضح.'}[c]||'تعذّرت قراءة الفاتورة.';
-    const det=(err&&(err.detail||err.message))||'';
-    setAutoStatus(msg+(det?' (تفاصيل: '+String(det).slice(0,160)+')':''),'err');
+    const msg={busy:'خدمة Gemini مزدحمة الآن، حاول بعد دقيقة.',no_key:'ضع مفتاح Gemini أولًا.',image_rejected:'الصورة غير مدعومة.'}[c]||'تعذّرت قراءة الفاتورة.';
+    setAutoStatus(msg+(err&&err.detail?' ('+String(err.detail).slice(0,140)+')':''),'err');
   }finally{btn.disabled=false}
 });
-initAuto();
 
-/* ---------- start ---------- */
+/* ---------- البداية ---------- */
 (async()=>{
-  try{db=await openDB();list=await dbAll()}catch(e){db=null;list=[];toast('التخزين غير متاح: البيانات لن تُحفظ')}
-  render();
+  try{idb=await openIDB()}catch(e){idb=null}
+  try{
+    await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+    sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {error}=await sb.from(TABLE).select('id').limit(1);
+    if(error) throw error;
+    cloud=true;
+  }catch(e){cloud=false}
+  try{await loadAll()}catch(e){cloud=false;list=idb?await idbAll().catch(()=>[]):[]}
+  if(cloud){setCloud('☁️ متصل بالسحابة — الفواتير محفوظة وتظهر على الجوال واللابتوب',true);render();await migrateLocal();render();}
+  else{setCloud('⚠️ غير متصل بالسحابة — الحفظ على هذا الجهاز فقط وممكن تضيع البيانات. تأكد من الإنترنت وأن جدول purchases موجود في Supabase.',false);render();}
 })();
 })();
-
 </script>
 </body>
 </html>
